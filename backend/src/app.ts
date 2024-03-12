@@ -85,8 +85,7 @@ app.get("/", (req: Request, res: Response) => {
   </head>
   <body>
     <div class="container">
-      <h1>Welcome <br /> Digiexplo</h1>
-      <p>Who do we have here? 😊😊</p>
+      <h1>korean language exam</h1>
     </div>
   </body>
   </html>`);

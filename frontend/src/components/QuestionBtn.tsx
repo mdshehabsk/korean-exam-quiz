@@ -1,5 +1,5 @@
 type TProps = {
-  children: JSX.Element | string;
+  children: JSX.Element | any;
 };
 
 const QuestionBtn: React.FC<TProps> = ({ children }) => (

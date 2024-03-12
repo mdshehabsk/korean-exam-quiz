@@ -3,7 +3,7 @@ import QuestionBtn from "./QuestionBtn"
 
 type TProps  ={
     questionLogo: string,
-    questionArr: number[],
+    questionArr?: number[],
     questionType: string
 }
 

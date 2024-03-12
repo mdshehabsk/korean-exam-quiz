@@ -1,42 +1,33 @@
-import ExamFooterBtn from "../../components/ExamFooterBtn";
-import ExamTopbarBtn from "../../components/ExamTopbarBtn";
-import QuestionCard from "../../components/QuestionCard";
-import { LOGO } from "../../utils/logo";
+import { IMAGE } from "../../utils/image";
 
 const index = () => {
   return (
     <>
-      <div>
-        <div className="exam--navbar  ">
-          <div className="container py-3 bg-white">
-            <div className="flex flex-wrap lg:flex-nowrap justify-center  lg:gap-4 ">
-              <ExamTopbarBtn>User: SHEHAB</ExamTopbarBtn>
-              <ExamTopbarBtn>Total Question: 40</ExamTopbarBtn>
-              <ExamTopbarBtn>Solved Question: 20</ExamTopbarBtn>
-              <ExamTopbarBtn>UnSolved Question: 20</ExamTopbarBtn>
-              <ExamTopbarBtn>50:00</ExamTopbarBtn>
-            </div>
-          </div>
+      <div className="flex flex-wrap min-h-lvh w-full  ">
+        <div className="basis-5/12 hidden md:block ">
+          <img
+            className="h-full w-full object-cover"
+            src={IMAGE.koreanExam}
+            alt="image description"
+          />
         </div>
-        <div className="exam--question">
-          <div className="container bg-white py-3 ">
-            <div className="flex flex-wrap justify-center gap-2 ">
-              <QuestionCard
-                questionLogo={LOGO.reading}
-                questionType="Reading" />
-              <QuestionCard
-                questionLogo={LOGO.listening}
-                questionType="Listening" />
-            </div>
-          </div>
-        </div>
-        <div className="exam--footer ">
-          <div className="container bg-white flex justify-end py-3 ">
-            <ExamFooterBtn color="blue">Previous</ExamFooterBtn>
-            <ExamFooterBtn color="yellow">Total</ExamFooterBtn>
-            <ExamFooterBtn color="red">Next</ExamFooterBtn>
-            <ExamFooterBtn color="green">Submit</ExamFooterBtn>
-          </div>
+        <div className="basis-full md:basis-6/12 grow p-8 flex flex-wrap gap-2 ">
+          {new Array(7).fill(undefined).map(elem => <div className="  grow p-6 bg-white border border-gray-200 rounded-lg shadow  ">
+           
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Set-1
+              </h5>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Lorem ipsum dolor sit amet.
+            </p>
+            <a
+              href="#"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:scale-105 transition-all focus:outline-none "
+            >
+              Take Exam
+              
+            </a>
+          </div>)}
         </div>
       </div>
     </>
