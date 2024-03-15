@@ -13,6 +13,13 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@toolkit/*": ["./src/toolkit/*"],
+      "@images/*":["./images/*"],
+      "@icons/*":["./icon/*"]
+    },
 
     /* Linting */
     "strict": true,

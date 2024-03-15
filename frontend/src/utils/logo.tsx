@@ -1,7 +1,7 @@
 
-import callIcon from '../icon/phone-call.png'
-import reading from '../icon/open-book.png'
-import listening from '../icon/headset.png'
+import callIcon from '@icons/phone-call.png'
+import reading from '@icons/open-book.png'
+import listening from '@icons/headset.png'
 
 export const LOGO = {
     callIcon,

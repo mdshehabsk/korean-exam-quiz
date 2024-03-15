@@ -4,32 +4,23 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import morgan from "morgan";
-import "./app/mail/sendMail";
+
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
 import path from 'path'
 const app: Application = express();
 import config from './app/config'
-// Parser
-app.use((req, res, next) => {
-  if (req.originalUrl === "/api/v1/product/buy-product/stripe/webhook") {
-    next();
-  } else {
-    express.json()(req, res, next);
-  }
-});
 
+app.use(express.json())
 app.use(morgan("dev"));
-
-// app.use(express.json())
 app.use(
   cors({
-    origin: config.base_url,
-    credentials: true,
+    origin: "*",
+    // credentials: true,
   })
 );
-app.use(cookieParser());
+// app.use(cookieParser());
 
 const static_folder = path.join(__dirname, "..", "public");
 app.use(express.static(static_folder));

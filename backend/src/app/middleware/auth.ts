@@ -4,8 +4,8 @@ import httpStatus from "http-status";
 import { AppError } from "../errors/AppError";
 import catchAsync from "../utils/catchAsync";
 import jwt from "jsonwebtoken";
-import { USER_ROLE } from "../modules/user/user.constant";
-import { User } from "../modules/user/user.model";
+import { USER_ROLE } from "../modules/User/user.constant";
+import { User } from "../modules/User/user.model";
 import config from "../config";
 
 type TRequiredRole = Array<(typeof USER_ROLE)[keyof typeof USER_ROLE]>;
@@ -39,8 +39,7 @@ const auth = (...requiredRoles: TRequiredRole) => {
     }
     if (
       requiredRoles &&
-      isUserExist.role !== undefined &&
-      !requiredRoles.includes(isUserExist?.role)
+      isUserExist.role !== undefined 
     ) {
       // checking if user meets the required roles
       throw new AppError(

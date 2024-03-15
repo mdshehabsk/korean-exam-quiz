@@ -1,9 +1,10 @@
 import React from "react"
 import QuestionBtn from "./QuestionBtn"
+import { ISetListening, ISetReading } from "@toolkit/Exam/ExamApi"
 
 type TProps  ={
     questionLogo: string,
-    questionArr?: number[],
+    questionArr: ISetReading[] | ISetListening[],
     questionType: string
 }
 
@@ -12,6 +13,7 @@ const defaultProps = {
 }
 
 const QuestionCard : React.FC<TProps> = ({questionArr,questionLogo,questionType}) => {
+    console.log(questionArr)
   return (
     <div className="bg-gray-100 p-3 max-w-[350px] w-full " >
         <div className="flex p-2 items-center gap-2 justify-center " >
@@ -20,9 +22,7 @@ const QuestionCard : React.FC<TProps> = ({questionArr,questionLogo,questionType}
             <h3 className="font-semibold text-2xl" > (Question:20) </h3>
         </div>
         <div className=" grid grid-cols-4 my-3 gap-2 ">
-            {
-                questionArr?.map((questionItem,index )=> <QuestionBtn key={index} > {questionItem} </QuestionBtn> )
-            }
+            
         </div>
     </div>
   )
