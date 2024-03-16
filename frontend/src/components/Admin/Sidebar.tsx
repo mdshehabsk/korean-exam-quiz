@@ -1,10 +1,10 @@
 import { BiBarChart } from "react-icons/bi";
-import { RiProductHuntLine } from "react-icons/ri";
-import { FiCommand } from "react-icons/fi";
-import { SlWrench } from "react-icons/sl";
-import { MdKeyboardArrowRight } from "react-icons/md";
+// import { RiProductHuntLine } from "react-icons/ri";
+// import { FiCommand } from "react-icons/fi";
+// import { SlWrench } from "react-icons/sl";
+// import { MdKeyboardArrowRight } from "react-icons/md";
 import { RiMenu2Fill } from "react-icons/ri";
-import { CiSettings } from "react-icons/ci";
+// import { CiSettings } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@toolkit/hook";
 
@@ -19,6 +19,12 @@ const sidebarItems = [
     icon: BiBarChart,
     link: "/admin"
   },
+  {
+    id:2,
+    name: 'Add Question',
+    icon: BiBarChart,
+    link: "/admin/add-question"
+  }
 ];
 
 const Sidebar = () => {

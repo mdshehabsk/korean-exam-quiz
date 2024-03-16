@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import adminSidebarSlice from './Admin/AdminSidebarSlice'
 import baseApi from './utils/baseApi'
+import { examSlice } from './Exam/examSlice'
 
 export const store = configureStore({
   reducer: {
     adminSidebar: adminSidebarSlice.reducer,
+    exam: examSlice.reducer,
     [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: GDK => GDK().concat(baseApi.middleware)

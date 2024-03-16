@@ -10,6 +10,8 @@ export default defineConfig({
       "@toolkit": path.resolve(__dirname, "./src/toolkit"),
       "@images": path.resolve(__dirname, "./src/images"),
       "@icons": path.resolve(__dirname, "./src/icons"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
+      "@types": path.resolve(__dirname,"./src/types")
     },
   },
   plugins: [react()],

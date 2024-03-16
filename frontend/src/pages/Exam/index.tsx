@@ -1,4 +1,4 @@
-import { IMAGE } from "../../utils/image";
+import { IMAGE } from "@utils/image";
 
 const index = () => {
   return (
@@ -12,7 +12,7 @@ const index = () => {
           />
         </div>
         <div className="basis-full md:basis-6/12 grow p-8 flex flex-wrap gap-2 ">
-          {new Array(7).fill(undefined).map(elem => <div className="  grow p-6 bg-white border border-gray-200 rounded-lg shadow  ">
+          {new Array(7).fill(undefined).map(_elem => <div className="  grow p-6 bg-white border border-gray-200 rounded-lg shadow  ">
            
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Set-1

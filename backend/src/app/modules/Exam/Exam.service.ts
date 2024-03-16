@@ -1,10 +1,13 @@
 
 
 const myExam = {
+    id:1,
     name: "Sample Exam",
     description: "This is a sample exam.",
-    reading: [
+    questions: [
         {
+            type:'reading',
+            id:1,
             question: "Reading Question 1",
             answer: 1,
             options: [
@@ -15,6 +18,8 @@ const myExam = {
             ]
         },
         {
+            type:'reading',
+            id:2,
             question: "Reading Question 2",
             answer: 2,
             options: [
@@ -24,9 +29,9 @@ const myExam = {
                 { id: 4, value: "Option 4" },
             ]
         },
-    ],
-    listening: [
         {
+            type:'listening',
+            id:3,
             question: "Listening Question 1",
             answer: 1,
             options: [
@@ -37,6 +42,8 @@ const myExam = {
             ]
         },
         {
+            type:'listening',
+            id:4,
             question: "Listening Question 2",
             answer: 2,
             options: [
@@ -46,7 +53,8 @@ const myExam = {
                 { id: 4, value: "Option 4" },
             ]
         },
-    ]
+    ],
+
 };
 
 const getAllSet = async () => {

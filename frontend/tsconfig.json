@@ -17,8 +17,10 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@toolkit/*": ["./src/toolkit/*"],
-      "@images/*":["./images/*"],
-      "@icons/*":["./icon/*"]
+      "@images/*":["./src/images/*"],
+      "@icons/*":["./src/icon/*"],
+      "@utils/*":["./src/utils/*"],
+      "@types/*": ["./src/types/*"]
     },
 
     /* Linting */
