@@ -1,4 +1,5 @@
 import { IMAGE } from "@utils/image";
+import { Link } from "react-router-dom";
 
 const index = () => {
   return (
@@ -20,13 +21,13 @@ const index = () => {
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               Lorem ipsum dolor sit amet.
             </p>
-            <a
-              href="#"
+            <Link
+              to={`/set/3`}
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:scale-105 transition-all focus:outline-none "
             >
               Take Exam
               
-            </a>
+            </Link>
           </div>)}
         </div>
       </div>

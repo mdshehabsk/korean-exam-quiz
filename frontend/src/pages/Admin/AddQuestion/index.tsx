@@ -3,7 +3,7 @@ import Modal from '@components/Modal'
 import { useGetSingleSetQuery } from "@toolkit/Exam/examApi";
 import { useState } from "react";
 const index = () => {
-  const { data, isLoading } = useGetSingleSetQuery(undefined);
+  const { data } = useGetSingleSetQuery(undefined);
   const [isModal,setIsModal] = useState(false)
 
   const modalToggleFunc = () => {
