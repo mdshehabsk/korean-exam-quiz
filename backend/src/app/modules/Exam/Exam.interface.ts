@@ -1,25 +1,18 @@
 
-export interface IExamReading {
-    question : string,
+export interface ISetQuestions {
+    questionType:string,
+    titleQuestion?: string,
+    question : {type:string,value:string},
     answer: number,
     options : {
-        id:string,
+        type:string
         value:string
     }[]
 }
 
-export interface IExamListening {
-    question: string,
-    answer: number,
-    option: {
-        id:string,
-        value:string
-    }[]
-}
 
-export interface IExam {
+export interface ISet {
     name:string,
     description:string,
-    reading:IExamReading[],
-    listening: IExamListening[]
+    questions:ISetQuestions[],
 }

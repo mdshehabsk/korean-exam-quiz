@@ -62,8 +62,8 @@ const Sidebar = () => {
         </div>
 
         <ul className="mt-[50px]">
-          {sidebarItems.map((item) => (
-            item.link ? <Link        className={`text-white flex flex-wrap items-center  hover:bg-gray-700 transition-['background']  w-full  `} to={item.link}>    <div className={`flex items-center gap-2  hover:bg-gray-700 transition-['background'] p-3 w-full ${activeItem === item.id && "bg-gray-700"} `}>
+          {sidebarItems.map((item,index) => (
+            item.link ? <Link key={index} className={`text-white flex flex-wrap items-center  hover:bg-gray-700 transition-['background']  w-full  `} to={item.link}>    <div className={`flex items-center gap-2  hover:bg-gray-700 transition-['background'] p-3 w-full ${activeItem === item.id && "bg-gray-700"} `}>
             <item.icon className="text-xl" />
             <span className=""> {item.name} </span>
             

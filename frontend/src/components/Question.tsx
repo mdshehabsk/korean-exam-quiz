@@ -7,13 +7,20 @@ import { getCurrentQuestion, reset } from "@toolkit/Exam/examSlice";
 
 type TProps = {
   currentQuestion: ISetQuestions,
-  questions: ISetQuestions[]
+  questions: ISetQuestions[],
+  submitBtn: boolean
 }
 
 
 
+const defaultProps = {
+  currentQuestion: {},
+  Question: [],
+  submitBtn: true
+}
+
 const Question = (props:TProps) => {
-  const {currentQuestion,questions} = props
+  const {currentQuestion,questions,submitBtn} = props
 
   const dispatch = useAppDispatch()
   const prevQuestionFn = () => {
@@ -46,7 +53,7 @@ const Question = (props:TProps) => {
             {/* <QuestionOptionBtn number='1' value='고르십시오'  />  */}
 
               {
-                currentQuestion?.options?.map(option =>  <QuestionOptionBtn  key={option.id} number={option.id}  value={option.value} /> )
+                currentQuestion?.options?.map(option =>  <QuestionOptionBtn  key={option.id} number={Number(option.id)} value={option.value}  /> )
               }
             </div>
           </div>
@@ -54,14 +61,20 @@ const Question = (props:TProps) => {
       </div>
       <div className="exam--footer ">
           <div className="container bg-white flex flex-wrap justify-center lg:justify-end my-4 ">
-            <button type="button"  className="exam-footer-btn bg-blue-700 hover:bg-blue-800" onClick={prevQuestionFn}  disabled={currentQuestion.id <= questions[0].id} >Previous</button >
+           <button type="button"  className="exam-footer-btn bg-blue-700 hover:bg-blue-800" onClick={prevQuestionFn}  disabled={currentQuestion.id <= questions[0].id} >Previous</button >
+            
             <button type="button"  className="exam-footer-btn bg-yellow-700 hover:bg-yellow-800"  onClick={totalQuestionFn} >Total</button >
             <button type="button"  className="exam-footer-btn bg-red-700 hover:bg-red-800" onClick={nextQuestionFn} disabled={currentQuestion.id >= questions[questions.length - 1].id }  >Next</button >
-            <button type="button"  className="exam-footer-btn bg-green-700 hover:bg-green-800" >Submit</button >
+           {
+            submitBtn &&  <button type="button"  className="exam-footer-btn bg-green-700 hover:bg-green-800" >Submit</button >
+           }
           </div>
         </div>
     </div>
   );
 };
+
+
+Question.defaultProps = defaultProps
 
 export default Question;

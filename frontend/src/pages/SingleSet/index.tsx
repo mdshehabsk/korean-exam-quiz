@@ -1,4 +1,4 @@
-import { useGetSingleSetQuery } from "@toolkit/Exam/examApi";
+import { useGetSingleSetQuery } from "@toolkit/Exam/setApi";
 import Question from "@components/Question";
 import ExamTopbar from "@components/ExamTopbar";
 import Questions from "@components/Questions";

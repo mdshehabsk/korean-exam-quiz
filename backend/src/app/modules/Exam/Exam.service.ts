@@ -1,4 +1,6 @@
 
+import { SetModel } from "./Exam.model";
+
 
 const myExam = {
     id:1,
@@ -58,15 +60,46 @@ const myExam = {
 };
 
 const getAllSet = async () => {
-
+    const allSet = await SetModel.find()
+    return allSet
 }
 
 const getSingleSet = async (id:string) => {
     return myExam
 }
 
+const addSet = async (name:string,description:string) => {
+    if(!name){
+        return {
+            nameNotFound:true
+        }
+    }
+    if(!description){
+        return {
+            descriptionNotFound:true
+        }
+    }
+    const setCreated = await SetModel.create({
+        description,
+        name,
+    })
+    return {
+        setCreated
+    }
+}
+
+
+const addQuestion = async () => {
+
+}
+
+
+
 
 export const ExamServices = {
     getAllSet,
-    getSingleSet
+    getSingleSet,
+
+    addQuestion,
+    addSet
 }

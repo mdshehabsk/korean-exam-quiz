@@ -13,6 +13,7 @@ export interface ISetQuestions{
 
 
 export interface ISet {
+    _id:string;
     name:string,
     description:string,
     questions: ISetQuestions[]

@@ -4,8 +4,11 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Exam from "./pages/Exam";
 import SingleSet from "./pages/SingleSet";
-import Admin from "./pages/Admin/Admin";
+
+
+import Admin from "@pages/Admin/Admin";
 import AdminIndex from "@pages/Admin/index";
+import AdminSingleSet from '@pages/Admin/SingleSet'
 import AddQuestion from "@pages/Admin/AddQuestion";
 import NotFound from "@pages/NotFound";
 function App() {
@@ -21,8 +24,9 @@ function App() {
           <Route path="/set/:id" element={<SingleSet />} />
           {/* all admin page are here */}
           <Route path="admin" element={<Admin />}>
-            <Route index element={<h1>hello world</h1>} />
+            <Route index element={<AdminIndex/>} />
             <Route path="add-question" element={<AddQuestion />} />
+            <Route path="set/:id"  element={<AdminSingleSet/>} />
           </Route>
 
           {/* not found page */}

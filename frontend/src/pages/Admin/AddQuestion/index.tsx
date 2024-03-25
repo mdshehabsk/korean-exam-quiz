@@ -1,13 +1,19 @@
 import Questions from "@components/Questions";
-import Modal from '@components/Modal'
-import { useGetSingleSetQuery } from "@toolkit/Exam/examApi";
-import { useState } from "react";
+import AddQuestionModal from '@components/Admin/AddQuestionModal'
+import { useGetAllSetQuery, useGetSingleSetQuery } from "@toolkit/Exam/setApi";
+import React, { useState } from "react";
 const index = () => {
-  const { data } = useGetSingleSetQuery(undefined);
+  const [setId,setSetId] = useState('')
+  const {data:allSet} = useGetAllSetQuery(undefined)
+  const { data : singleSet } = useGetSingleSetQuery(setId , {skip: !setId});
   const [isModal,setIsModal] = useState(false)
 
   const modalToggleFunc = () => {
     setIsModal(!isModal)
+  }
+
+  const handleSelectChange = (event:React.ChangeEvent<HTMLSelectElement>) => {
+    setSetId(event.target.value)
   }
   return (
     <div className="relative" >
@@ -22,21 +28,21 @@ const index = () => {
           Select a set
         </label>
         <select
+        onChange={handleSelectChange}
           id="countries"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
         >
-          <option selected>Choose a set</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
+          <option defaultChecked>Choose a set</option>
+          {
+            allSet?.data?.map((set,index) => <option key={index} value={set._id} > {set.name} </option> )
+          }
         </select>
       </div>
 
       <div>
-        {data && (
+        {singleSet && (
           <div className="exam-questions">
-            <Questions set={data?.data} footer={false} />
+            <Questions set={singleSet?.data} footer={false} />
             <div className="flex justify-center py-4 bg-white">
               <button
               onClick={modalToggleFunc}
@@ -50,7 +56,7 @@ const index = () => {
         )}
       </div>
 
-      <Modal isOpen={isModal} modalToggle={modalToggleFunc} />
+      <AddQuestionModal setId={setId} isOpen={isModal} modalToggle={modalToggleFunc} />
     </div>
   );
 };

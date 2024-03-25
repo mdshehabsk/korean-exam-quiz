@@ -1,7 +1,7 @@
 
 
 import { createSlice  } from "@reduxjs/toolkit";
-import { ISetQuestions } from "@types/exam";
+import { ISetQuestions } from "../../types/exam";
 
 
 

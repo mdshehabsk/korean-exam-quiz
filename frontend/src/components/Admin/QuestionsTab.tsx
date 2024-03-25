@@ -49,12 +49,14 @@ const QuestionsTab = (props:TProps) => {
       <div className="border-b border-gray-200 ">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
           {tabs?.map((tab, index) => (
-            <li
+            <button
               key={index}
               onClick={() => tabControlFn(tab)}
               className="me-2 cursor-pointer"
+              
             >
               <a
+              
                 className={`inline-flex items-center justify-center p-4 border-b-2 ${
                   tab.select
                     ? "text-blue-600 border-blue-600"
@@ -63,7 +65,7 @@ const QuestionsTab = (props:TProps) => {
               >
                 {tab.name}
               </a>
-            </li>
+            </button>
           ))}
         </ul>
       </div>

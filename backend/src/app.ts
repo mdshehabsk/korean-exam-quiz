@@ -13,6 +13,7 @@ const app: Application = express();
 import config from './app/config'
 
 app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(morgan("dev"));
 app.use(
   cors({

@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler } from "express";
+import multer from "multer";
 import { ZodError } from "zod";
 import config from "../config";
 import { AppError } from "../errors/AppError";
@@ -12,6 +13,7 @@ import { handleZodError } from "../errors/handleZodError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   // setting default values
+  console.log('global error',err)
   let statusCode = 500;
   let message = "Something went wrong";
 
@@ -61,6 +63,8 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     message = "An error occurred";
     errorMessage = err?.message;
     errorDetails = err;
+  }else if (err instanceof multer.memoryStorage) {
+    
   }
 
   return res.status(statusCode).json({
