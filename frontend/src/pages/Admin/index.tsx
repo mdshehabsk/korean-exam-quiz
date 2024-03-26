@@ -30,7 +30,7 @@ const index = () => {
               {elem.description}
             </p>
             <Link
-              to={`/admin/set/3`}
+              to={`/admin/set/${elem._id}`}
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700  hover:bg-green-800 focus:scale-105 transition-all focus:outline-none "
             >
               Explore

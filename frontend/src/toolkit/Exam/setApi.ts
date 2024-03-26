@@ -5,7 +5,7 @@ import { ISet } from '../../types/exam'
 
 
 interface ISingleSetResponse {
-    data: ISet,
+    data: ISet
     status: string,
     message:string,
     success:boolean,

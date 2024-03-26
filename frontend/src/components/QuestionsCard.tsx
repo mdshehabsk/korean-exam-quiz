@@ -1,12 +1,12 @@
 import React from "react";
 import QuestionBtn from "./QuestionBtn";
-import {ISetQuestions } from "../types/exam";
+import {ISetQuestion } from "../types/exam";
 import { useAppDispatch } from "@toolkit/hook";
 import { getCurrentQuestion } from "@toolkit/Exam/examSlice";
 
 type TProps = {
   questionLogo: string;
-  questionArr: ISetQuestions[];
+  questionArr: ISetQuestion[];
   questionType: string;
 };
 
@@ -21,7 +21,7 @@ const QuestionCard: React.FC<TProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  const btnClick = (questionItem:ISetQuestions) => {
+  const btnClick = (questionItem:ISetQuestion) => {
     dispatch(
       getCurrentQuestion(questionItem)
     );
@@ -36,7 +36,7 @@ const QuestionCard: React.FC<TProps> = ({
       <div className=" grid grid-cols-4 my-3 gap-2 ">
         {questionArr?.map((questionItem,index) => (
           <QuestionBtn key={index} onClick={() => btnClick(questionItem)}>
-            {questionItem.id}
+            {questionItem.questionId}
           </QuestionBtn>
         ))}
       </div>

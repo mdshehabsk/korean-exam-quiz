@@ -3,9 +3,12 @@ import Question from "@components/Question";
 import ExamTopbar from "@components/ExamTopbar";
 import Questions from "@components/Questions";
 import { useAppSelector } from "@toolkit/hook";
+import { useParams } from "react-router-dom";
 const index = () => {
-  const { data, isLoading } = useGetSingleSetQuery(undefined);
+  const {id} = useParams()
+  const { data, isLoading } = useGetSingleSetQuery(id as string);
   const {currentQuestion} = useAppSelector(state => state.exam)
+
   // useEffect(() => {
   //   const timer = setInterval(() => {
   //     setTime(prevTime => {

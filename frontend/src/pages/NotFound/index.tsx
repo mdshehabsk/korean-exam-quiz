@@ -10,6 +10,7 @@ function NotFound() {
         <li>Go back to the <Link  className="text-blue-700" to="/">homepage</Link>.</li>
         <li>Try searching for what you're looking for.</li>
       </ul>
+
     </div>
   );
 }

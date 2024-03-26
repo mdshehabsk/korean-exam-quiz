@@ -23,8 +23,9 @@ app.use(
 );
 // app.use(cookieParser());
 
-const static_folder = path.join(__dirname, "..", "public");
-app.use(express.static(static_folder));
+app.use(express.static('public'));
+
+app.use('/uploads', express.static('uploads'));
 // application routes
 app.use("/api/v1", router);
 

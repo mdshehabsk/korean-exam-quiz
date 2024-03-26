@@ -14,7 +14,6 @@ const defaultProps = {
 
 const Questions = (props: TProps) => {
   const { set, footer } = props;
-
   return (
     <div className="exam--question">
       <div className="container bg-white py-3 ">
@@ -24,7 +23,7 @@ const Questions = (props: TProps) => {
             questionType="Reading"
             questionArr={
               set?.questions?.filter(
-                (question) => question.type === "reading"
+                (question) => question.questionType === "Reading"
               ) || []
             }
           />
@@ -33,7 +32,7 @@ const Questions = (props: TProps) => {
             questionType="Listening"
             questionArr={
               set?.questions?.filter(
-                (question) => question.type === "listening"
+                (question) => question.questionType === "Listening"
               ) || []
             }
           />
