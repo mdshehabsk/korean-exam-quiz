@@ -1,4 +1,4 @@
-import QuestionOptionBtn from "@components/QuestionOptionBtn";
+import AddQuestionOptionBtn from "@components/Admin/AddQuestionOptionBtn";
 import { useEffect, useState } from "react";
 
 type TOptions = { id: number; value: string | File  ; select: boolean }
@@ -119,7 +119,7 @@ const OptionBox = (props:TProps) => {
         <div>
           <div className="flex flex-col gap-1">
             {options.map((option, index) => (
-              <QuestionOptionBtn
+              <AddQuestionOptionBtn
                 number={option.id}
                 key={index}
                 value={option.value }
@@ -154,7 +154,7 @@ const OptionBox = (props:TProps) => {
         <div>
           <div className="flex flex-col gap-1">
             {options.map((option, index) => (
-              <QuestionOptionBtn
+              <AddQuestionOptionBtn
                 number={option.id}
                 key={index}
                 value={option.value }

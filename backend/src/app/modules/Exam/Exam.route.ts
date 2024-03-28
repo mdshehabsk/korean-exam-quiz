@@ -3,6 +3,8 @@
 import express from 'express'
 import { ExamControllers } from './Exam.controller';
 import multer from 'multer';
+import { ExamValidation } from './Exam.validation';
+
 
 const router = express.Router()
 
@@ -19,6 +21,6 @@ router.post('/create-set/:setId',ExamControllers.addSet)
 
 const questionMulterFields = upload.fields([{name:'option1',maxCount:1},{name:'option2',maxCount:1},{name:'option3',maxCount:1},{name:'option4',maxCount:1},{name:'question',maxCount:1}])
 
-router.post('/add-question/:setId',questionMulterFields,ExamControllers.addQuestion)
+router.post('/add-question/:setId',questionMulterFields,ExamValidation.addQuestionValidation,ExamControllers.addQuestion)
 
 export const ExamRoutes = router;

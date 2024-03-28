@@ -40,8 +40,8 @@ const addSet = catchAsync(async (req, res) => {
 
 const addQuestion = catchAsync(async (req, res) => {
 
-
-  await ExamServices.addQuestion(req);
+  console.log(req.body)
+  // await ExamServices.addQuestion(req);
 
   
 });

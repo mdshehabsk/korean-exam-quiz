@@ -18,7 +18,7 @@ const defaultProps = {
   removeOption: null,
 }
 
-const QuestionOptionBtn = (props: TProps) => {
+const AddQuestionOptionBtn = (props: TProps) => {
   const { value, number, getSelectedOption = () => {}, select,removeOption } = props;
   return (
     <div className=" flex items-center justify-between group ">
@@ -41,7 +41,7 @@ const QuestionOptionBtn = (props: TProps) => {
   );
 };
 
-QuestionOptionBtn.defaultProps = defaultProps
+AddQuestionOptionBtn.defaultProps = defaultProps
 
 
-export default QuestionOptionBtn;
+export default AddQuestionOptionBtn;

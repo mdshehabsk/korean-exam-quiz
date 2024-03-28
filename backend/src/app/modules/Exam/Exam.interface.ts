@@ -6,6 +6,7 @@ export interface ISetQuestion {
     question : {type:string,value:string},
     answer: number,
     options : {
+        id:number
         type:string
         value:string
     }[]

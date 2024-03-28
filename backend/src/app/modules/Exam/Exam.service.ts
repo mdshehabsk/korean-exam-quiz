@@ -5,62 +5,7 @@ import { SetModel } from "./Exam.model";
 import fs from 'fs'
 import path from 'path'
 
-const myExam = {
-    id:1,
-    name: "Sample Exam",
-    description: "This is a sample exam.",
-    questions: [
-        {
-            type:'reading',
-            id:1,
-            question: "Reading Question 1",
-            answer: 1,
-            options: [
-                { id: 1, value: "Option 1" },
-                { id: 2, value: "Option 2" },
-                { id: 3, value: "Option 3" },
-                { id: 4, value: "Option 4" },
-            ]
-        },
-        {
-            type:'reading',
-            id:2,
-            question: "Reading Question 2",
-            answer: 2,
-            options: [
-                { id: 1, value: "Option 1" },
-                { id: 2, value: "Option 2" },
-                { id: 3, value: "Option 3" },
-                { id: 4, value: "Option 4" },
-            ]
-        },
-        {
-            type:'listening',
-            id:3,
-            question: "Listening Question 1",
-            answer: 1,
-            options: [
-                { id: 1, value: "Option 1" },
-                { id: 2, value: "Option 2" },
-                { id: 3, value: "Option 3" },
-                { id: 4, value: "Option 4" },
-            ]
-        },
-        {
-            type:'listening',
-            id:4,
-            question: "Listening Question 2",
-            answer: 2,
-            options: [
-                { id: 1, value: "Option 1" },
-                { id: 2, value: "Option 2" },
-                { id: 3, value: "Option 3" },
-                { id: 4, value: "Option 4" },
-            ]
-        },
-    ],
 
-};
 
 const getAllSet = async () => {
     const allSet = await SetModel.find()
@@ -120,6 +65,7 @@ const addQuestion = async (req:Request) => {
       titleQuestion,
       optionsType,
       question: questionText,
+      answer
     } = req.body;
   
     const optionOneText = req.body?.option1 ;
@@ -161,12 +107,12 @@ const addQuestion = async (req:Request) => {
           value: questionText as string,
         },
         options: [
-          { type: optionsType, value: optionOneText },
-          { type: optionsType, value: optionTwoText },
-          { type: optionsType, value: optionThreeText },
-          { type: optionsType, value: optionFourText },
+          { type: optionsType, value: optionOneText , id:1 },
+          { type: optionsType, value: optionTwoText , id:2},
+          { type: optionsType, value: optionThreeText,id:3 },
+          { type: optionsType, value: optionFourText ,id:4 },
         ],
-        answer: 1,
+        answer,
       });
       const saved =  await findSet?.save();
 
@@ -208,7 +154,7 @@ const addQuestion = async (req:Request) => {
           type:questionType as string,
           value:questionText as string
         },
-        options:[{type:fileType,value: filePaths[0] },{type:fileType,value: filePaths[1] },{type:fileType,value: filePaths[2] },{type:fileType,value: filePaths[3] }],
+        options:[{type:fileType,value: filePaths[0] ,id:1 },{type:fileType,value: filePaths[1] ,id:2 },{type:fileType,value: filePaths[2] ,id:3 },{type:fileType,value: filePaths[3] , id:4 }],
         answer:1
       })
       const saved =  await findSet?.save();
@@ -243,12 +189,12 @@ const addQuestion = async (req:Request) => {
           value: questionFileName,
         },
         options: [
-          { type: optionsType, value: optionOneText },
-          { type: optionsType, value: optionTwoText },
-          { type: optionsType, value: optionThreeText },
-          { type: optionsType, value: optionFourText },
+          { type: optionsType, value: optionOneText ,id:1 },
+          { type: optionsType, value: optionTwoText ,id:2 },
+          { type: optionsType, value: optionThreeText , id:3 },
+          { type: optionsType, value: optionFourText , id:4 },
         ],
-        answer: 1,
+        answer,
       });
   
       const saved =  await findSet?.save();
@@ -292,7 +238,7 @@ const addQuestion = async (req:Request) => {
           type:questionType as string,
           value:questionFileName as string
         },
-        options:[{type:fileType,value: filePaths[0] },{type:fileType,value: filePaths[1] },{type:fileType,value: filePaths[2] },{type:fileType,value: filePaths[3] }],
+        options:[{type:fileType,value: filePaths[0] ,id:1 },{type:fileType,value: filePaths[1] ,id:2 },{type:fileType,value: filePaths[2] ,id:3 },{type:fileType,value: filePaths[3] ,id:4 }],
         answer:1
       })
       const saved =  await findSet?.save();

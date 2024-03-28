@@ -45,6 +45,8 @@ const AddQuestionModal = (props: TProps) => {
     for(let i in options.options){
       formData.append(`option${Number(i)+ 1}`,options.options[i].value)
     }
+    const correctId = options?.options?.find(option => option.select)?.id as unknown  as  string
+    formData.append('answer',correctId)
     mutate({setId,formData})
   }
 

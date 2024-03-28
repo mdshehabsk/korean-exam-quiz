@@ -1,4 +1,3 @@
-import QuestionOptionBtn from "./QuestionOptionBtn";
 import {  ISetQuestion } from "../types/exam"
 import { useAppDispatch } from "@toolkit/hook";
 import { getCurrentQuestion, reset } from "@toolkit/Exam/examSlice";
@@ -31,6 +30,23 @@ const Question = (props:TProps) => {
     dispatch(getCurrentQuestion(newQuestion))
   }
   const totalQuestionFn = () => dispatch(reset())
+
+  const playAudio = (audioLink:string) => {
+    const audio = new Audio(`http://localhost:5000/${audioLink}`)
+
+    let playCount = 0;
+      audio.addEventListener('ended', function() {
+        playCount++;
+        if (playCount < 2) {
+          setTimeout(function() {
+            audio.play();
+
+          }, 500); // Delay of 500 milliseconds
+        }
+      });
+      
+      audio.play();
+  }
   return (
     <div className="w-full">
       <div className="my-5">
@@ -58,10 +74,7 @@ const Question = (props:TProps) => {
               {currentQuestion?.options?.map(option => {
                 if(option.type === 'audio') {
                   return (
-                    <audio controls>
-  <source src={`http://localhost:5000/${option.value}`} type="audio/mp3"/>
-  Your browser does not support the audio tag.
-</audio>
+                    <button className="p-3 bg-green-700 text-white m-3" onClick={()=> playAudio(option.value)} >Play audio</button>
                   )
                 }
               })}
