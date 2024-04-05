@@ -40,8 +40,15 @@ export const setApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags:['set']
+        }),
+        submitExam : builder.mutation({
+            query: ({setId,submitExamData}) => ({
+                url: `/exam/submit-exam/${setId}`,
+                body: submitExamData,
+                method: 'POST'
+            })
         })
     })
 })
 
-export const {useGetSingleSetQuery,useCreateNewSetMutation,useGetAllSetQuery} = setApi
+export const {useGetSingleSetQuery,useCreateNewSetMutation,useGetAllSetQuery,useSubmitExamMutation} = setApi

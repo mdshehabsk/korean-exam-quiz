@@ -42,7 +42,8 @@ const questionsSchema = {
     ],
     answer:{
         type: String,
-        required:true
+        required:true,
+        select:0
     }
 }
 

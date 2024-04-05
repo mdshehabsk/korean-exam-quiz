@@ -3,7 +3,6 @@ import QuestionBtn from "./QuestionBtn";
 import {ISetQuestion } from "../types/exam";
 import { useAppDispatch } from "@toolkit/hook";
 import { getCurrentQuestion } from "@toolkit/Exam/examSlice";
-
 type TProps = {
   questionLogo: string;
   questionArr: ISetQuestion[];
@@ -19,6 +18,7 @@ const QuestionCard: React.FC<TProps> = ({
   questionLogo,
   questionType,
 }) => {
+
   const dispatch = useAppDispatch();
 
   const btnClick = (questionItem:ISetQuestion) => {
@@ -35,7 +35,7 @@ const QuestionCard: React.FC<TProps> = ({
       </div>
       <div className=" grid grid-cols-4 my-3 gap-2 ">
         {questionArr?.map((questionItem,index) => (
-          <QuestionBtn key={index} onClick={() => btnClick(questionItem)}>
+          <QuestionBtn select={questionItem.select} key={index} onClick={() => btnClick(questionItem)}>
             {questionItem.questionId}
           </QuestionBtn>
         ))}

@@ -1,15 +1,19 @@
 
+export interface IOption {
+    id:number,
+    type:string
+    value:string
+    select?: boolean
+}
 
 export interface ISetQuestion {
+    select: boolean
     questionId: number
     questionType:string,
     titleQuestion?: string,
     question : {type:string,value:string},
     answer: number,
-    options : {
-        type:string
-        value:string
-    }[]
+    options : IOption[]
 }
 
 export interface ISet {
@@ -18,3 +22,8 @@ export interface ISet {
     description:string,
     questions: ISetQuestion[]
 }
+
+export interface ISubmitQuestionsData {
+    questionId: number;
+    optionId: number;
+  }

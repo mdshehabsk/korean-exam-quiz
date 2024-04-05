@@ -40,16 +40,20 @@ const addSet = catchAsync(async (req, res) => {
 
 const addQuestion = catchAsync(async (req, res) => {
 
-  console.log(req.body)
-  // await ExamServices.addQuestion(req);
+  await ExamServices.addQuestion(req);
 
   
 });
+const submitExam = catchAsync(async (req,res)=> {
+  const body = req.body;
+  const setId = req.params.setId
 
+  await ExamServices.submitExam(setId,body)
+})
 export const ExamControllers = {
   getAllSet,
   getSingleSet,
   addSet,
-
+  submitExam,
   addQuestion,
 };

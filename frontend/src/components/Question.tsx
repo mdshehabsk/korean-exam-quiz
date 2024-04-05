@@ -1,12 +1,14 @@
 import {  ISetQuestion } from "../types/exam"
 import { useAppDispatch } from "@toolkit/hook";
 import { getCurrentQuestion, reset } from "@toolkit/Exam/examSlice";
+import QuestionOptionBtn from "./QuestionOptionBtn";
 
-
+interface ISubmitQuestionsData {questionId:number,optionId:number}
 type TProps = {
   currentQuestion: ISetQuestion,
   questions: ISetQuestion[],
-  submitBtn: boolean
+  submitBtn: boolean,
+  handleChangeQuestionData : (arg0:ISubmitQuestionsData) => void
 }
 
 
@@ -18,13 +20,12 @@ const defaultProps = {
 }
 
 const Question = (props:TProps) => {
-  const {currentQuestion,questions,submitBtn} = props
+  const {currentQuestion,questions,submitBtn,handleChangeQuestionData} = props
   const dispatch = useAppDispatch()
   const prevQuestionFn = () => {
     const newQuestion = questions?.find(question => Number(question.questionId ) === Number(currentQuestion.questionId ) - 1)
     dispatch(getCurrentQuestion(newQuestion))
   }
-
   const nextQuestionFn = () => {
     const newQuestion = questions?.find(question => Number(question.questionId ) === Number(currentQuestion.questionId ) + 1)
     dispatch(getCurrentQuestion(newQuestion))
@@ -47,6 +48,7 @@ const Question = (props:TProps) => {
       
       audio.play();
   }
+
   return (
     <div className="w-full">
       <div className="my-5">
@@ -74,7 +76,17 @@ const Question = (props:TProps) => {
               {currentQuestion?.options?.map(option => {
                 if(option.type === 'audio') {
                   return (
-                    <button className="p-3 bg-green-700 text-white m-3" onClick={()=> playAudio(option.value)} >Play audio</button>
+                    <QuestionOptionBtn number={option.id} key={option.id}  >
+                      <button className="p-3 bg-green-700 text-white m-3" onClick={()=> playAudio(option.value)} >Play audio</button>
+                    </QuestionOptionBtn>
+                  )
+                }
+                if(option.type === 'text'){
+                  return (
+                    // <button className="p-3 text-black  m-3" >{option.value} </button>
+                    <QuestionOptionBtn number={option.id} select={option.select} key={option.id} getSelectedOption={value => handleChangeQuestionData({questionId:currentQuestion.questionId,optionId:value})} >
+                      {option.value}
+                    </QuestionOptionBtn>
                   )
                 }
               })}
