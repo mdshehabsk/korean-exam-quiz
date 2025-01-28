@@ -26,7 +26,7 @@ const getSingleSet = catchAsync(async (req, res) => {
 
 const addSet = catchAsync(async (req, res) => {
   const { name, description } = req.body;
-  const { nameNotFound, descriptionNotFound, setCreated } =
+  const {setCreated } =
     await ExamServices.addSet(name, description);
   if (setCreated) {
     sendResponse(res, {
@@ -39,8 +39,8 @@ const addSet = catchAsync(async (req, res) => {
 });
 
 const addQuestion = catchAsync(async (req, res) => {
-
-  await ExamServices.addQuestion(req);
+ 
+  // await ExamServices.addQuestion(req);
 
   
 });

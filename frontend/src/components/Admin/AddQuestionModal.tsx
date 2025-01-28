@@ -58,7 +58,7 @@ const AddQuestionModal = (props: TProps) => {
     >
       <div className="w-[700px]  overflow-y-auto max-h-[600px] ">
         <div className="relative  p-4 w-full  max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div className="relative bg-white rounded-lg shadow ">
             <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 Set-1

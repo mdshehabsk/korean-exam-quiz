@@ -1,5 +1,5 @@
 import express from "express";
-import validateRequest from "../../middleware/validateRequest";
+import {validateBodyRequest} from "../../middleware/validateRequest";
 import { UserController } from "./user.controller";
 import { UserValidation } from "./user.validation";
 import auth from "../../middleware/auth";
@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post(
   "/create-user",
-  validateRequest(UserValidation.CreateUserZodSchema),
+  validateBodyRequest(UserValidation.CreateUserZodSchema),
 
   UserController.createUser
 );

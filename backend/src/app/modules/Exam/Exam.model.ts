@@ -1,62 +1,54 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { ISet } from "./Exam.interface";
 
-
 const questionsSchema = {
-    questionId : {
-        type:Number,
-        required:true
+  questionId: {
+    type: Number,
+    required: true,
+  },
+  questionType: {
+    type: String,
+    enum: ["reading", "listening"],
+    required: true,
+  },
+  questionTitle: {
+    type: String,
+  },
+  questionDescription: {
+    type: String,
+    required: true,
+  },
+  questionDescriptionType: {
+    type: String,
+    enum: ["text", "audio", "image"],
+    required: true,
+  },
+  options: [
+    {
+      type: String,
+      require: true,
     },
-    questionType: {
-        type:String,
-        required:true
-    },
-    titleQuestion: {
-        type:String
-    },
-    question:{
-        type:{
-            type:String,
-        required:true
-        },
-        value: {
-            type:String,
-            required:true
-        }
-    },
-    options:[
-        {
-            id:{
-                type:Number,
-                required:true
-            },
-            type:{
-                type:String,
-                required:true
-            },
-            value:{
-                type:String,
-                require:true
-            }
-        }
-    ],
-    answer:{
-        type: String,
-        required:true,
-        select:0
-    }
-}
+  ],
+  optionsType: {
+    type: String,
+    enum: ["text", "audio", "image"],
+  },
+  answer: {
+    type: String,
+    required: true,
+  },
+};
 
 const setSchema = new mongoose.Schema<ISet>({
-    name:{
-        type:String,
-        required:true,
-    },
-    description:{
-        type:String,
-        required:true
-    },
-    questions:[questionsSchema]
-})
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  questions: [questionsSchema],
+});
 
-export const SetModel =  mongoose.model('set',setSchema)
+export const SetModel = mongoose.model("set", setSchema);

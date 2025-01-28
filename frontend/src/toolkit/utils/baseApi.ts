@@ -5,7 +5,7 @@ const baseApi = createApi({
     reducerPath:'api',
     tagTypes:['set'],
     baseQuery: fetchBaseQuery({
-        baseUrl: `http://localhost:5000/api/v1`,
+        baseUrl: `http://localhost:3001/api/v1`,
     }),
     endpoints : builder => ({})
 })

@@ -1,8 +1,8 @@
-import { Request } from "express";
+import { Request , Express } from "express";
 import { ISet, ISetQuestion } from "./Exam.interface";
 import { SetModel } from "./Exam.model";
 import fs from "fs";
-import mongoose from "mongoose";
+
 
 const getAllSet = async () => {
   const allSet = await SetModel.find();
@@ -15,16 +15,7 @@ const getSingleSet = async (setId: string) => {
 };
 
 const addSet = async (name: string, description: string) => {
-  if (!name) {
-    return {
-      nameNotFound: true,
-    };
-  }
-  if (!description) {
-    return {
-      descriptionNotFound: true,
-    };
-  }
+
   const setCreated = await SetModel.create({
     description,
     name,

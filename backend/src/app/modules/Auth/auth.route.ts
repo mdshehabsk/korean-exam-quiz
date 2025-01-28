@@ -1,5 +1,5 @@
 import express from "express";
-import validateRequest from "../../middleware/validateRequest";
+import {validateBodyRequest} from "../../middleware/validateRequest";
 import { AuthControllers } from "./auth.controller";
 import { AuthZodValidation } from "./auth.validation";
 import auth from "../../middleware/auth";
@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post(
   "/login",
-  validateRequest(AuthZodValidation.LoginValidationSchema),
+  validateBodyRequest(AuthZodValidation.LoginValidationSchema),
   AuthControllers.loginUser
 );
 
