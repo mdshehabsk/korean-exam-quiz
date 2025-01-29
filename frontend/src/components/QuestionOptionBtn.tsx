@@ -1,7 +1,7 @@
 import React from "react";
 
 type TProps = {
-  children: JSX.Element[] | JSX.Element | string
+  children: React.ReactNode | string
   number: number;
   getSelectedOption?: React.Dispatch<number>;
   select: boolean;

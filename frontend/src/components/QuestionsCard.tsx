@@ -36,7 +36,7 @@ const QuestionCard: React.FC<TProps> = ({
       <div className=" grid grid-cols-4 my-3 gap-2 ">
         {questionArr?.map((questionItem,index) => (
           <QuestionBtn select={questionItem.select} key={index} onClick={() => btnClick(questionItem)}>
-            {questionItem.questionId}
+            {index + 1}
           </QuestionBtn>
         ))}
       </div>

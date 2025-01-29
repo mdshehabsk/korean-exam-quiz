@@ -39,10 +39,46 @@ const addSet = catchAsync(async (req, res) => {
 });
 
 const addQuestion = catchAsync(async (req, res) => {
- 
-  // await ExamServices.addQuestion(req);
-
-  
+  const files = req.files as Express.Multer.File[];
+  const body = req.body
+  const {setId} = req.params
+  const {setNotFound,faild,listeningBiggerThan20,readingIsBiggerThan20,saved} = await ExamServices.addQuestion({files,body,setId});
+  if(listeningBiggerThan20) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_ACCEPTABLE,
+      success: false,
+      error : 'Already have 20 listening questions'
+    })
+  }
+  if(readingIsBiggerThan20) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_ACCEPTABLE,
+      success: false,
+      error : 'Already have 20 reading questions',
+    })
+  }
+  if(faild) {
+   return sendResponse(res, {
+      statusCode: httpStatus.NOT_IMPLEMENTED,
+      success: false,
+      error: 'Add question faild'
+    })
+  }
+  if(setNotFound) {
+  return  sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      error: 'Set not found'
+    })
+  }
+  if(saved) {
+    return sendResponse(res, {
+      statusCode : httpStatus.CREATED,
+      success: true,
+      data: saved,
+      message: 'Add question successfull',
+    })
+  }
 });
 const submitExam = catchAsync(async (req,res)=> {
   const body = req.body;

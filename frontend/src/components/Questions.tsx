@@ -16,7 +16,7 @@ const defaultProps = {
 
 const Questions = (props:TProps) => {
   const { set, footer } = props;
-  const [mutateSubmitExam,{data}] = useSubmitExamMutation()
+  const [mutateSubmitExam] = useSubmitExamMutation()
   const {submitExamData} = useAppSelector(state => state.exam)
   const handleSubmitExam = () => {
     const setId = set._id
@@ -34,7 +34,7 @@ const Questions = (props:TProps) => {
             questionType="Reading"
             questionArr={
               set?.questions?.filter(
-                (question) => question.questionType === "Reading"
+                (question) => question.type === "reading"
               ) || []
             }
           />
@@ -43,7 +43,7 @@ const Questions = (props:TProps) => {
             questionType="Listening"
             questionArr={
               set?.questions?.filter(
-                (question) => question.questionType === "Listening"
+                (question) => question.type === "listening"
               ) || []
             }
           />

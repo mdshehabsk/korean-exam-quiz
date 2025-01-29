@@ -1,12 +1,11 @@
 
 export interface ISetQuestion {
-    questionId: number
     type: 'reading' | 'listening',
     title?: string,
     description : string,
     descriptionType: 'text' | 'image' | 'audio'
     answer: number,
-    options :string[],
+    options : string[],
     optionsType : 'text' | 'image' | 'audio'
 }
 

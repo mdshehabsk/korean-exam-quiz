@@ -24,12 +24,13 @@ export const setApi = baseApi.injectEndpoints({
         
         getAllSet : builder.query<ISetResponse,undefined>({
             query: () => ({
-                url: '/exam/all-set'
+                url: '/exam/get-all-set'
             }),
             providesTags:['set']
         }),
         getSingleSet : builder.query<ISingleSetResponse,string>({
-            query : (id) => `/exam/set/${id}`
+            query : (id) => `/exam/get-single-set/${id}`,
+            
         }),
         createNewSet : builder.mutation({
             query : (setData) => {

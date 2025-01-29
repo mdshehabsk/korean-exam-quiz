@@ -53,15 +53,15 @@ const Question = (props:TProps) => {
     <div className="w-full">
       <div className="my-5">
         <h1 className="text-xl">
-        {currentQuestion?.questionId}. {currentQuestion?.titleQuestion}
+        {currentQuestion?.questionId}. {currentQuestion?.title}
         </h1>
       </div>
       <div className="flex flex-wrap justify-center w-full ">
         <div className="basis-full md:basis-5/12   ">
           <div className="flex items-center justify-center w-full h-full" >
-            {/* <img src={IMAGE.koreanExam} alt="no image" /> */}
+           {currentQuestion?.descriptionType === 'image' && <img src={currentQuestion?.description} alt="description image" /> }
           {
-            currentQuestion?.question?.type === 'text' && <div dangerouslySetInnerHTML={{__html:currentQuestion?.question?.value}} ></div>
+            currentQuestion?.descriptionType === 'text' && <div dangerouslySetInnerHTML={{__html:currentQuestion?.description}} ></div>
           }
           </div>
         </div>
@@ -73,19 +73,19 @@ const Question = (props:TProps) => {
               {/* {
                 currentQuestion?.options?.map(option =>  <QuestionOptionBtn  key={option.id} number={Number(option.id)} value={option.value}  /> )
               } */}
-              {currentQuestion?.options?.map(option => {
-                if(option.type === 'audio') {
+              {currentQuestion?.options?.map((option,index) => {
+                if(currentQuestion.optionsType === 'audio') {
                   return (
                     <QuestionOptionBtn number={option.id} key={option.id}  >
                       <button className="p-3 bg-green-700 text-white m-3" onClick={()=> playAudio(option.value)} >Play audio</button>
                     </QuestionOptionBtn>
                   )
                 }
-                if(option.type === 'text'){
+                if(currentQuestion?.optionsType === 'text'){
                   return (
                     // <button className="p-3 text-black  m-3" >{option.value} </button>
-                    <QuestionOptionBtn number={option.id} select={option.select} key={option.id} getSelectedOption={value => handleChangeQuestionData({questionId:currentQuestion.questionId,optionId:value})} >
-                      {option.value}
+                    <QuestionOptionBtn number={index + 1} select={option.select} key={option.id} getSelectedOption={value => handleChangeQuestionData({questionId:currentQuestion.questionId,optionId:value})} >
+                      {option}
                     </QuestionOptionBtn>
                   )
                 }

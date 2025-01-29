@@ -7,12 +7,13 @@ export interface IOption {
 }
 
 export interface ISetQuestion {
-    select: boolean
-    questionId: number
-    questionType:string,
-    titleQuestion?: string,
-    question : {type:string,value:string},
+    _id: string
+    type:string,
+    title?: string,
+    descriptionType: 'text' | 'image' | 'audio'
+    description : string,
     answer: number,
+    optionsType: 'text' | 'image' | 'audio'
     options : IOption[]
 }
 

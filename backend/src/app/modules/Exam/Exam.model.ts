@@ -2,23 +2,19 @@ import mongoose from "mongoose";
 import { ISet } from "./Exam.interface";
 
 const questionsSchema = {
-  questionId: {
-    type: Number,
-    required: true,
-  },
-  questionType: {
+  type: {
     type: String,
     enum: ["reading", "listening"],
     required: true,
   },
-  questionTitle: {
+  title: {
     type: String,
   },
-  questionDescription: {
+  description: {
     type: String,
     required: true,
   },
-  questionDescriptionType: {
+  descriptionType: {
     type: String,
     enum: ["text", "audio", "image"],
     required: true,

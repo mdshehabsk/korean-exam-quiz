@@ -3,7 +3,7 @@ import Question from "@components/Question";
 import Questions from "@components/Questions";
 import { useAppSelector } from "@toolkit/hook";
 import { useParams } from "react-router-dom";
-const index = () => {
+const Index = () => {
   const {id} = useParams()
   const { data, isLoading } = useGetSingleSetQuery(id as string);
   const { currentQuestion } = useAppSelector((state) => state.exam);
@@ -27,7 +27,7 @@ const index = () => {
 
   //   return () => clearInterval(timer);
   // }, []);
-
+  console.log(data)
   return (
     <>
       <div>
@@ -65,8 +65,8 @@ const index = () => {
                   <Question
                     currentQuestion={currentQuestion}
                     questions={data?.data?.questions}
-                    submitBtn={false}
-                  />
+                    submitBtn={false}  
+                       handleChangeQuestionData={(a) => {}}             />
                 </div>
               </div>
             )}
@@ -77,4 +77,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
