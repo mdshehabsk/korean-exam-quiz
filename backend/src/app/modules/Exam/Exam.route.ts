@@ -18,7 +18,7 @@ router.post(
   "/add-question/:setId",
   upload.any(),
   validateBodyRequest(ExamValidations.CreateQuestionZodSchema),
-  validateFilesRequest(ExamValidations.CreateQuestionImageZodSchema),
+  validateFilesRequest(ExamValidations.CreateQuestionFileZodSchema),
   ExamControllers.addQuestion
 );
 
