@@ -110,7 +110,7 @@ const CreateQuestionZodSchema = z
 // }
 
 // Schema definition
-const CreateQuestionImageZodSchema = z
+const CreateQuestionFileZodSchema = z
   .object({
     body: z.object({
       descriptionType: z.string(),
@@ -166,10 +166,50 @@ const CreateQuestionImageZodSchema = z
          });
        }
     }
+
+
+    if (descriptionType === "audio") {
+      if (descriptionFiles.length !== 1) {
+       return ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'When description type is audio, exactly one description audio is required.',
+          path: ['files','description']
+        });
+      }
+
+      const mimmeTypeOkay = ["audio/mpeg","audio/wav",  "audio/ogg", "audio/flac",  "audio/aac",  "audio/x-wav" ].includes(descriptionFiles[0]?.mimetype as string)
+      if(!mimmeTypeOkay) {
+       return ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'When description type is audio, Only audio/mpeg, audio/wav, audio/ogg , audio/flac and audio/x-wav  are allowed.',
+          path: ['files','description']
+        });
+      }
+    }
+
+    if(optionsType === 'audio') {
+      if (optionsFiles.length !== 4) {
+        return ctx.addIssue({
+           code: z.ZodIssueCode.custom,
+           message: 'When optoins type is image, exactly four options audio is required.',
+           path: ['files','options']
+         });
+       }
+    }
+    if(optionsType === 'image') {
+      const everyMimeOkay = optionsFiles?.every(file =>  ["audio/mpeg","audio/wav",  "audio/ogg", "audio/flac",  "audio/aac",  "audio/x-wav" ].includes(file?.mimetype as string) )
+      if(!everyMimeOkay) {
+        return ctx.addIssue({
+           code: z.ZodIssueCode.custom,
+           message: 'When options type is audio, Only audio/mpeg, audio/wav, audio/ogg , audio/flac and audio/x-wav are allowed.',
+           path: ['files','options']
+         });
+       }
+    }
   });
 
 export const ExamValidations = {
   CreateSetZodSchema,
   CreateQuestionZodSchema,
-  CreateQuestionImageZodSchema,
+  CreateQuestionFileZodSchema,
 };
