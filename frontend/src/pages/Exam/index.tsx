@@ -2,7 +2,7 @@ import { useGetAllSetQuery } from "@toolkit/Exam/setApi";
 import { IMAGE } from "@utils/image";
 import { Link } from "react-router-dom";
 
-const index = () => {
+const Exam = () => {
   const {data:allSet} = useGetAllSetQuery(undefined)
   return (
     <>
@@ -37,4 +37,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Exam;

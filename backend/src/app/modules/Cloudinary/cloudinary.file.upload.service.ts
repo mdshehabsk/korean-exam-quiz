@@ -2,22 +2,20 @@ import cloudinary from './config';
 import { v4 as uuidv4 } from 'uuid';
 import { Express } from 'express';
 import { UploadApiResponse } from 'cloudinary';
-import fs from 'fs'
+
 
 export const cloudinaryFileUpload = async (
   files: Express.Multer.File[],
-  folder: string = 'korean'
+  folder: string = 'korean',
 ): Promise<UploadApiResponse[]> => {
   try {
     const uploadPromises = files.map((file) =>
       new Promise<UploadApiResponse>((resolve, reject) => {
-        fs.writeFileSync('test-image.jpg', file.buffer);
         const originalName = file.originalname.split(' ').join('-');
         const extension = file.originalname.split('.').pop();
         const uniqueName = `${originalName}_${uuidv4()}.${extension}`;
-
         const uploadStream = cloudinary.uploader.upload_stream(
-          { folder, public_id: uniqueName },
+          { folder, public_id: uniqueName , resource_type: 'auto' },
           (error, result) => {
             if(error) {
               // eslint-disable-next-line no-console

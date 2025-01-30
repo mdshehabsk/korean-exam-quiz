@@ -13,5 +13,6 @@ export interface ISetQuestion {
 export interface ISet {
     name:string,
     description:string,
+    status: 'publish' | 'draft'
     questions:ISetQuestion[],
 }

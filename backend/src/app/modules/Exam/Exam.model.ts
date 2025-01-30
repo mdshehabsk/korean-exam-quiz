@@ -44,6 +44,12 @@ const setSchema = new mongoose.Schema<ISet>({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    enum : ['status','draft'],
+    default : 'draft',
+    required : true
+  },
   questions: [questionsSchema],
 });
 

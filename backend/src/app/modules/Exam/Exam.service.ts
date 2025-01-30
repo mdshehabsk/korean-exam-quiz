@@ -4,12 +4,12 @@ import { SetModel } from "./Exam.model";
 import { cloudinaryFileUpload } from "../Cloudinary/cloudinary.file.upload.service";
 
 const getAllSet = async () => {
-  const allSet = await SetModel.find();
+  const allSet = await SetModel.find({status: 'publish'}).select('-questions');
   return allSet;
 };
 
 const getSingleSet = async (setId: string) => {
-  const findSet = await SetModel.findById(setId);
+  const findSet = await SetModel.findOne({_id: setId, status : 'publish'}).select('-answer');
   return findSet;
 };
 
@@ -277,7 +277,7 @@ const addQuestion = async ({
   ) {
     const uploadedDescriptionFile = await cloudinaryFileUpload(
       descriptionFile,
-      "korean/question"
+      "korean/question",
     );
     const descriptionURL = uploadedDescriptionFile?.map((item) => item.url);
 
@@ -368,30 +368,7 @@ const addQuestion = async ({
   };
 };
 
-const submitExam = async (
-  setId: string,
-  examData: { questionId: number; optionId: number }[]
-) => {
-  const set = await SetModel.findById(setId).populate({
-    path: "questions.answer",
-    select: "answer",
-  });
-  if (!set) {
-    throw new Error(`Set with ID ${setId} not found`);
-  }
-
-  // Calculate points
-  let totalPoints = 0;
-  set.questions.forEach((question) => {
-    const matchingExamData = examData.find(
-      (data) => data.questionId === question.questionId
-    );
-    if (matchingExamData && matchingExamData.optionId == question.answer) {
-      totalPoints += 2.5;
-    }
-  });
-  console.log(totalPoints);
-};
+const submitExam = async () => {};
 
 export const ExamServices = {
   getAllSet,

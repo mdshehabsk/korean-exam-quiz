@@ -1,20 +1,16 @@
 
-export interface IOption {
-    id:number,
-    type:string
-    value:string
-    select?: boolean
-}
+
 
 export interface ISetQuestion {
     _id: string
-    type:string,
+    type: 'reading' | 'listening',
     title?: string,
     descriptionType: 'text' | 'image' | 'audio'
     description : string,
     answer: number,
     optionsType: 'text' | 'image' | 'audio'
-    options : IOption[]
+    options : string[],
+    number?: number
 }
 
 export interface ISet {

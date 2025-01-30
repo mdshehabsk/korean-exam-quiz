@@ -30,7 +30,17 @@ export const setApi = baseApi.injectEndpoints({
         }),
         getSingleSet : builder.query<ISingleSetResponse,string>({
             query : (id) => `/exam/get-single-set/${id}`,
-            
+            transformResponse : (response : ISingleSetResponse) => {
+                const reading = response?.data?.questions?.filter(question => question.type === 'reading').map((question,i) => ({...question,number: i + 1}))
+                const listeing = response?.data?.questions?.filter(question => question.type === 'listening').map((question,i) => ({...question,number: i + 21}))
+                return {
+                    ...response,
+                    data: {
+                        ...response.data,
+                        questions: [...reading,...listeing]
+                    }
+                }
+            }
         }),
         createNewSet : builder.mutation({
             query : (setData) => {

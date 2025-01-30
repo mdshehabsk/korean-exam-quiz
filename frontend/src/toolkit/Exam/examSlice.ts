@@ -1,50 +1,32 @@
 
 
 import { createSlice  } from "@reduxjs/toolkit";
-import { ISetQuestion, ISubmitQuestionsData } from "../../types/exam";
+import { ISetQuestion } from "../../types/exam";
 
 
 
-type TInitialState = {
-    currentQuestion : null | ISetQuestion,
-    mergedData: {},
-    submitExamData: ISubmitQuestionsData[]
+
+interface IInitialState {
+    currentQuestion : ISetQuestion | null,
+    submitExamData: Record<string,number>
 }
 
-const initialState : TInitialState = {
+const initialState : IInitialState = {
     currentQuestion : null,
-    mergedData : {},
-    submitExamData: []
+    submitExamData: {}
 }
 
 export const examSlice = createSlice({
     initialState,
     name: 'examSlice',
     reducers: {
-        getCurrentQuestion : (state,action) => {
+        handleCurrentQuestion : (state,action) => {
             const payload = action.payload
             state.currentQuestion = payload
         },
-        getSubmitExamData : (state,action) => {
+        handleSubmitExamData : (state,action) => {
             const payload = action.payload;
-            const { optionId, questionId } = payload;
-            const existingIndex = state.submitExamData.findIndex(
-              (data) => data.questionId === questionId
-            );
-          
-            // Create a copy of the state to avoid mutation
-            const updatedState = [...state.submitExamData];
-          
-            if (existingIndex !== -1) {
-              // Update the existing object
-              updatedState[existingIndex] = {
-                questionId,
-                optionId,
-              };
-            } else {
-              updatedState.push({ questionId, optionId });
-            }
-            state.submitExamData = updatedState
+            state.submitExamData[payload.questionId] = payload.answerId
         },
         reset : state => {
           state.currentQuestion = null
@@ -52,4 +34,4 @@ export const examSlice = createSlice({
     }
 })
 
-export const {getCurrentQuestion,reset,getSubmitExamData} = examSlice.actions
+export const {handleSubmitExamData,reset,handleCurrentQuestion} = examSlice.actions

@@ -1,12 +1,12 @@
 import Questions from "@components/Questions";
 import AddQuestionModal from "@components/Admin/AddQuestionModal";
-import { useGetAllSetQuery, useGetSingleSetQuery } from "@toolkit/Exam/setApi";
 import React, { useState } from "react";
+import { useGetAllSetForAdminQuery, useGetSingleSetForAdminQuery } from "@toolkit/Admin/adminApi";
 
 const Index = () => {
   const [setId, setSetId] = useState("");
-  const { data: allSet } = useGetAllSetQuery(undefined);
-  const { data: singleSet } = useGetSingleSetQuery(setId, { skip: !setId });
+  const { data: allSet } = useGetAllSetForAdminQuery(undefined);
+  const { data: singleSet } = useGetSingleSetForAdminQuery(setId, { skip: !setId });
   const [isModal, setIsModal] = useState(false);
 
   const modalToggleFunc = () => {

@@ -80,7 +80,7 @@ const addQuestion = catchAsync(async (req, res) => {
     })
   }
 });
-const submitExam = catchAsync(async (req,res)=> {
+const submitExam = catchAsync(async (req)=> {
   const body = req.body;
   const setId = req.params.setId
 

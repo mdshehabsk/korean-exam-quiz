@@ -17,7 +17,7 @@ const defaultProps = {
 const QuestionOptionBtn = (props: TProps) => {
   const { children, number, getSelectedOption = () => {}, select } = props;
   return (
-    <div className=" flex items-center justify-between group ">
+    <div className=" flex items-center justify-between ">
       <div className="items-center space-x-5 inline-flex p-2 cursor-pointer ">
         <button
           onClick={() => getSelectedOption(number)}

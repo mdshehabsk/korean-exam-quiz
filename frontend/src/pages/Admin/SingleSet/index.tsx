@@ -1,33 +1,14 @@
-import { useGetSingleSetQuery } from "@toolkit/Exam/setApi";
+
 import Question from "@components/Question";
 import Questions from "@components/Questions";
 import { useAppSelector } from "@toolkit/hook";
 import { useParams } from "react-router-dom";
+import { useGetSingleSetForAdminQuery } from "@toolkit/Admin/adminApi";
 const Index = () => {
   const {id} = useParams()
-  const { data, isLoading } = useGetSingleSetQuery(id as string);
+  const { data, isLoading } = useGetSingleSetForAdminQuery(id as string);
   const { currentQuestion } = useAppSelector((state) => state.exam);
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setTime(prevTime => {
-  //       if (prevTime.seconds === 0) {
-  //         if (prevTime.minutes === 0) {
-  //           clearInterval(timer);
-  //           // Timer has reached 0
-  //           alert("Time's up!");
-  //           return initialTime;
-  //         } else {
-  //           return { minutes: prevTime.minutes - 1, seconds: 59 };
-  //         }
-  //       } else {
-  //         return { ...prevTime, seconds: prevTime.seconds - 1 };
-  //       }
-  //     });
-  //   }, 1000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
-  console.log(data)
+  data?.data?.questions
   return (
     <>
       <div>
@@ -64,9 +45,10 @@ const Index = () => {
                 <div className="container bg-white py-3">
                   <Question
                     currentQuestion={currentQuestion}
-                    questions={data?.data?.questions}
+                    set={data?.data}
                     submitBtn={false}  
-                       handleChangeQuestionData={(a) => {}}             />
+                    optionAction={false}
+                  />
                 </div>
               </div>
             )}

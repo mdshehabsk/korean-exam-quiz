@@ -1,4 +1,3 @@
-import  { useState } from 'react'
 import ExamTopbarBtn from './ExamTopbarBtn'
 interface Time {
   minutes: number;
