@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        korean : ["Noto Serif KR", "serif"]
+      }
+    },
   },
   darkMode: 'class',
   plugins: []

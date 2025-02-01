@@ -149,8 +149,8 @@ const AddQuestionModal = (props: TProps) => {
         if (errorMessage) {
           toast.error(errorMessage);
         }
-        if(errorArr){
-          const errorObject = errorArr.reduce(
+        if(errorArr && Array.isArray(errorArr)){
+          const errorObject = errorArr?.reduce(
             (acc, { path, message }) => ({ ...acc, [path]: message }),
             {}
           );
@@ -162,7 +162,8 @@ const AddQuestionModal = (props: TProps) => {
   
   useEffect(()=> {
     if(isSuccess && data) {
-      toast.success(data?.data?.message)
+      setTitleQuestion('')
+      setIsTitleQuestion(false)
       setDescriptionText('')
       setDescriptionFile(undefined)
       setOption('')
@@ -170,9 +171,9 @@ const AddQuestionModal = (props: TProps) => {
       setOptionsFile([])
       setFormErrorFromServer({})
       modalToggle()
+      toast.success(data?.message)
     }
- 
-  },[isSuccess,data])
+  },[isSuccess, data])
   return (
     <div
       className={` w-full lg:w-[80%] mx-auto shadow  bg-white mt-[10px] px-4 py-2 ${

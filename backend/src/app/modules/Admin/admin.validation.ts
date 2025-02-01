@@ -197,7 +197,7 @@ const CreateQuestionFileZodSchema = z
     }
   });
 
-export const ExamValidations = {
+export const AdminValidation = {
   CreateSetZodSchema,
   CreateQuestionZodSchema,
   CreateQuestionFileZodSchema,

@@ -13,15 +13,7 @@ const getSingleSet = async (setId: string) => {
   return findSet;
 };
 
-const addSet = async (name: string, description: string) => {
-  const setCreated = await SetModel.create({
-    description,
-    name,
-  });
-  return {
-    setCreated,
-  };
-};
+
 
 
 // const addQuestion = async (req: Request) => {
@@ -368,12 +360,46 @@ const addQuestion = async ({
   };
 };
 
-const submitExam = async () => {};
+const submitExam = async ({setId,submitExamData}: {setId: string, submitExamData : Record<string,number>}) => {
+  const findSet = await SetModel.findById(setId).lean()
+  if(!findSet){
+    return {
+      setNotFound: true
+    }
+  }
+  const returnSubmitedSet = {
+      name: findSet.name,
+      description: findSet.description,
+      _id: findSet?._id,
+      status: findSet?.status,
+    questions: findSet?.questions?.map(question => {
+      return {
+        ...question,
+        selected: submitExamData[question?._id as string]
+      }
+    })
+  }
+  const correctAnswers = returnSubmitedSet.questions?.filter(
+    question => question.selected === Number(question.answer)
+  ).length || 0;
+  
+  const totalScore = correctAnswers * 2.5;
+  
+  const responseObj = {
+    returnSubmitedSet,
+    correctAnswers,
+    totalScore
+  }
+  
+  return {
+    responseObj
+  }
+
+};
 
 export const ExamServices = {
   getAllSet,
   getSingleSet,
   submitExam,
   addQuestion,
-  addSet,
 };

@@ -1,9 +1,9 @@
 import React from "react";
 type TProps = {
-  children: JSX.Element | any;
+  children: JSX.Element | string  | number | React.ReactNode;
   onClick : React.MouseEventHandler<HTMLButtonElement>
   select: boolean
-};
+ };
 
 const defaultProps = {
   onClick : () => {},

@@ -30,7 +30,7 @@ function App() {
           </Route>
 
           {/* not found page */}
-
+          <Route path="not-found"   element={<NotFound/>} />
           <Route path="*"   element={<NotFound/>} />
         </Routes>
       </>

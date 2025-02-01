@@ -1,5 +1,6 @@
 
 export interface ISetQuestion {
+    _id?: string
     type: 'reading' | 'listening',
     title?: string,
     description : string,
@@ -11,6 +12,7 @@ export interface ISetQuestion {
 
 
 export interface ISet {
+    _id? : string
     name:string,
     description:string,
     status: 'publish' | 'draft'

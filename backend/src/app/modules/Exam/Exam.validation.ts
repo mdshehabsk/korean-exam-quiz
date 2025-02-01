@@ -183,7 +183,7 @@ const CreateQuestionFileZodSchema = z
          });
        }
     }
-    if(optionsType === 'image') {
+    if(optionsType === 'audio') {
       const everyMimeOkay = optionsFiles?.every(file =>  ["audio/mpeg","audio/wav",  "audio/ogg", "audio/flac",  "audio/aac",  "audio/x-wav" ].includes(file?.mimetype as string) )
       if(!everyMimeOkay) {
         return ctx.addIssue({

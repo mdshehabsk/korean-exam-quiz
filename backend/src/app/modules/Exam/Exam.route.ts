@@ -10,7 +10,7 @@ router.get("/get-all-set", ExamControllers.getAllSet);
 
 router.get("/get-single-set/:setId", ExamControllers.getSingleSet);
 
-router.post("/create-set",validateBodyRequest(ExamValidations.CreateSetZodSchema), ExamControllers.addSet);
+
 
 
 

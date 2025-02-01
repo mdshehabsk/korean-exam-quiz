@@ -18,7 +18,6 @@ const defaultProps = {
 };
 
 const Questions = (props: TProps) => {
-  console.log('console')
   const dispatch = useAppDispatch()
   const { set, footer } = props;
   const [mutateSubmitExam] = useSubmitExamMutation();

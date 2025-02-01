@@ -1,9 +1,6 @@
 import baseApi from '@toolkit/utils/baseApi'
 import { ISet } from '../../types/exam'
 
-
-
-
 interface ISingleSetResponse {
     data: ISet
     status: string,
@@ -26,8 +23,9 @@ export const setApi = baseApi.injectEndpoints({
             query: () => ({
                 url: '/exam/get-all-set'
             }),
-            providesTags:['set']
+            providesTags: ['Sets']
         }),
+  
         getSingleSet : builder.query<ISingleSetResponse,string>({
             query : (id) => `/exam/get-single-set/${id}`,
             transformResponse : (response : ISingleSetResponse) => {
@@ -40,26 +38,18 @@ export const setApi = baseApi.injectEndpoints({
                         questions: [...reading,...listeing]
                     }
                 }
-            }
-        }),
-        createNewSet : builder.mutation({
-            query : (setData) => {
-                return {
-                    url:'/exam/create-set',
-                    body: setData,
-                    method:'POST'
-                }
             },
-            invalidatesTags:['set']
+            providesTags: ['Single-set']
         }),
+
         submitExam : builder.mutation({
             query: ({setId,submitExamData}) => ({
                 url: `/exam/submit-exam/${setId}`,
-                body: submitExamData,
+                body: {submitExamData},
                 method: 'POST'
             })
         })
     })
 })
 
-export const {useGetSingleSetQuery,useCreateNewSetMutation,useGetAllSetQuery,useSubmitExamMutation} = setApi
+export const {useLazyGetSingleSetQuery,useGetSingleSetQuery,useGetAllSetQuery,useSubmitExamMutation} = setApi

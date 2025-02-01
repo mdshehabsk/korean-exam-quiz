@@ -1,9 +1,9 @@
-import { useGetSingleSetQuery, useSubmitExamMutation } from "@toolkit/Exam/setApi";
+import {  useSubmitExamMutation } from "@toolkit/Exam/setApi";
 import Question from "@components/Question";
 import ExamTopbar from "@components/ExamTopbar";
 import Questions from "@components/Questions";
 import { useAppSelector } from "@toolkit/hook";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 // import ExamResult from "@components/ExamResult";
@@ -12,10 +12,15 @@ interface Time {
   minutes: number;
   seconds: number;
 }
-const Index = () => {
+
+
+
+const Singleset = () => {
   const { id } = useParams();
   const [time, setTime] = useState<Time>({ minutes: 1, seconds: 0 });
   const [mutateSubmitExam] = useSubmitExamMutation()
+  const navigate = useNavigate()
+  const {currentSet: data} = useAppSelector(state => state.set)
   useEffect(() => {
     const timer = setInterval(() => {
       if (time.minutes === 0 && time.seconds === 0) {
@@ -37,11 +42,12 @@ const Index = () => {
     return () => clearInterval(timer);
   }, [time]);
 
-  const { data, isLoading } = useGetSingleSetQuery(id as string);
+  // const { data, isLoading } = useGetSingleSetQuery(id as string);
   const { currentQuestion , submitExamData } = useAppSelector((state) => state.exam);
 
-
-
+  if(id === 'prefetch' && !data?._id) {
+    navigate('/not-found')
+  }
 
   function apiCall() {
     mutateSubmitExam({
@@ -52,7 +58,6 @@ const Index = () => {
   return (
     <>
       <div>
-        {isLoading && <h3>Loading...</h3>}
         {data && (
           <>
             <ExamTopbar
@@ -62,7 +67,7 @@ const Index = () => {
             />
             {!currentQuestion && (
               <div className="exam-questions">
-                <Questions set={data?.data} />
+                <Questions set={data} />
               </div>
             )}
             {currentQuestion && (
@@ -70,7 +75,7 @@ const Index = () => {
                 <div className="container bg-white py-3">
                   <Question
                     currentQuestion={currentQuestion}
-                    set={data?.data}
+                    set={data}
                   />
                 </div>
               </div>
@@ -83,4 +88,6 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Singleset
+
+

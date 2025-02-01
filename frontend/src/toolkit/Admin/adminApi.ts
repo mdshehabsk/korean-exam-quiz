@@ -20,7 +20,18 @@ export const adminApi = baseApi.injectEndpoints({
         getAllSetForAdmin : builder.query<ISetResponse,undefined>({
             query: () => ({
                 url: '/admin/exam/get-all-set'
-            })
+            }),
+            providesTags : ['Sets']
+        }),
+        createNewSet : builder.mutation({
+            query : (setData) => {
+                return {
+                    url:'/admin/exam/create-set',
+                    body: setData,
+                    method:'POST'
+                }
+            },
+            invalidatesTags: ['Sets'] 
         }),
         getSingleSetForAdmin : builder.query<ISingleSetResponse,string>({
             query : (id) => `/admin/exam/get-single-set/${id}`,
@@ -34,9 +45,20 @@ export const adminApi = baseApi.injectEndpoints({
                         questions: [...reading,...listeing]
                     }
                 }
-            }
+            },
+            providesTags: ['Single-set']
         }),
+        updateSet : builder.mutation({
+            query : ({setId,status}) => ({
+                url: `/admin/exam/update-set/${setId}`,
+                body: {
+                    status
+                },
+                method: 'PATCH'
+            }),
+            invalidatesTags: ['Sets', 'Single-set']
+        })
     })
 })
 
-export const  {useGetAllSetForAdminQuery,useGetSingleSetForAdminQuery} = adminApi
+export const  {useGetAllSetForAdminQuery,useGetSingleSetForAdminQuery, useCreateNewSetMutation,useUpdateSetMutation} = adminApi

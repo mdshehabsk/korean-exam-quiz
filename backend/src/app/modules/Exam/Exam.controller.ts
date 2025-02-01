@@ -24,19 +24,7 @@ const getSingleSet = catchAsync(async (req, res) => {
   });
 });
 
-const addSet = catchAsync(async (req, res) => {
-  const { name, description } = req.body;
-  const {setCreated } =
-    await ExamServices.addSet(name, description);
-  if (setCreated) {
-    sendResponse(res, {
-      data: setCreated,
-      statusCode: httpStatus.CREATED,
-      success: true,
-      message: "set create successful",
-    });
-  }
-});
+
 
 const addQuestion = catchAsync(async (req, res) => {
   const files = req.files as Express.Multer.File[];
@@ -80,16 +68,30 @@ const addQuestion = catchAsync(async (req, res) => {
     })
   }
 });
-const submitExam = catchAsync(async (req)=> {
-  const body = req.body;
+const submitExam = catchAsync(async (req,res)=> {
+  const {submitExamData} = req.body;
   const setId = req.params.setId
+  const {responseObj,setNotFound} = await ExamServices.submitExam({setId, submitExamData})
 
-  await ExamServices.submitExam(setId,body)
+  if(setNotFound) {
+    return sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      error: 'set not found'
+    })
+  }
+  if(responseObj) {
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      data: responseObj,
+      message: 'get submited set result'
+    })
+  }
 })
 export const ExamControllers = {
   getAllSet,
   getSingleSet,
-  addSet,
   submitExam,
   addQuestion,
 };

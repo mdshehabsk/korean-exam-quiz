@@ -9,7 +9,7 @@ export interface ISetQuestion {
     description : string,
     answer: number,
     optionsType: 'text' | 'image' | 'audio'
-    options : string[],
+    options : string[] ,
     number?: number
 }
 
@@ -17,6 +17,7 @@ export interface ISet {
     _id:string;
     name:string,
     description:string,
+    status : 'publish' | 'draft'
     questions: ISetQuestion[]
 }
 
