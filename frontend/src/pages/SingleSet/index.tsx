@@ -17,7 +17,7 @@ interface Time {
 
 const Singleset = () => {
   const { id } = useParams();
-  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 30 });
+  const [time, setTime] = useState<Time>({ minutes: 50, seconds: 0 });
   const [clearTime,setClearTime] = useState(true)
   const [mutateSubmitExam, { data: submitResult }] = useSubmitExamMutation();
   const navigate = useNavigate();

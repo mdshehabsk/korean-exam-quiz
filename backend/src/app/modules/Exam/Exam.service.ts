@@ -271,8 +271,7 @@ const addQuestion = async ({
       descriptionFile,
       "korean/question",
     );
-    const descriptionURL = uploadedDescriptionFile?.map((item) => item.url);
-
+    const descriptionURL = uploadedDescriptionFile?.map((item) => item.secure_url);
     foundSet.questions.push({
       title: body.title,
       answer: Number(body.answer),
@@ -299,8 +298,8 @@ const addQuestion = async ({
       optionsFiles,
       "korean/question"
     );
-    const descriptionURL = uploadedDescriptionFile?.map((item) => item.url);
-    const optionsURL = uploadedOptionsFile?.map((item) => item.url);
+    const descriptionURL = uploadedDescriptionFile?.map((item) => item.secure_url);
+    const optionsURL = uploadedOptionsFile?.map((item) => item.secure_url);
     foundSet.questions.push({
       title: body.title,
       answer: Number(body.answer),
@@ -323,7 +322,7 @@ const addQuestion = async ({
       optionsFiles,
       "korean/question"
     );
-    const optionsURL = uploadedOptionsFile?.map((item) => item.url);
+    const optionsURL = uploadedOptionsFile?.map((item) => item.secure_url);
 
     foundSet.questions.push({
       title: body.title,
