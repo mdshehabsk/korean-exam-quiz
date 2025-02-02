@@ -52,7 +52,7 @@ const Singleset = () => {
   );
 
   if (id === "prefetch" && !data?._id) {
-    navigate("/not-found");
+    navigate("/");
   }
 
   function apiCall() {
