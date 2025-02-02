@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
-import cookieParser from "cookie-parser";
+
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import morgan from "morgan";
@@ -8,9 +8,9 @@ import morgan from "morgan";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes";
-import path from 'path'
+
 const app: Application = express();
-import config from './app/config'
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))

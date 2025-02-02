@@ -23,7 +23,7 @@ const CreateQuestionZodSchema = z
       title: z
         .string({ required_error: "title is required" })
         .min(1, { message: "title must be more than 1 character" })
-        .max(300, { message: "title must be less than 300 characters" }),
+        .max(300, { message: "title must be less than 300 characters" }).optional(),
       descriptionType: z.enum(["text", "audio", "image"], {
         required_error: "description type is required",
         invalid_type_error:
@@ -96,20 +96,7 @@ const CreateQuestionZodSchema = z
     }
   });
 
-// Helper function to validate image dimensions
-// async function validateImageDimensions(file: File): Promise<boolean> {
-//   return new Promise((resolve) => {
-//     const img = new Image();
-//     img.src = URL.createObjectURL(file);
-//     img.onload = () => {
-//       const isValid = img.width <= 600 && img.height <= 600;
-//       resolve(isValid);
-//     };
-//     img.onerror = () => resolve(false);
-//   });
-// }
 
-// Schema definition
 const CreateQuestionFileZodSchema = z
   .object({
     body: z.object({
@@ -196,7 +183,7 @@ const CreateQuestionFileZodSchema = z
          });
        }
     }
-    if(optionsType === 'image') {
+    if(optionsType === 'audio') {
       const everyMimeOkay = optionsFiles?.every(file =>  ["audio/mpeg","audio/wav",  "audio/ogg", "audio/flac",  "audio/aac",  "audio/x-wav" ].includes(file?.mimetype as string) )
       if(!everyMimeOkay) {
         return ctx.addIssue({

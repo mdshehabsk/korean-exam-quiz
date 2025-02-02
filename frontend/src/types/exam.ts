@@ -1,25 +1,24 @@
 
-export interface IOption {
-    id:number,
-    type:string
-    value:string
-    select?: boolean
-}
+
 
 export interface ISetQuestion {
-    select: boolean
-    questionId: number
-    questionType:string,
-    titleQuestion?: string,
-    question : {type:string,value:string},
+    _id: string
+    type: 'reading' | 'listening',
+    title?: string,
+    descriptionType: 'text' | 'image' | 'audio'
+    description : string,
     answer: number,
-    options : IOption[]
+    optionsType: 'text' | 'image' | 'audio'
+    options : string[] ,
+    number?: number,
+    selected?: number
 }
 
 export interface ISet {
     _id:string;
     name:string,
     description:string,
+    status : 'publish' | 'draft'
     questions: ISetQuestion[]
 }
 

@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const multer_1 = __importDefault(require("multer"));
 const zod_1 = require("zod");
 const config_1 = __importDefault(require("../config"));
 const AppError_1 = require("../errors/AppError");
@@ -12,6 +13,7 @@ const handleValidationError_1 = require("../errors/handleValidationError");
 const handleZodError_1 = require("../errors/handleZodError");
 const globalErrorHandler = (err, req, res, next) => {
     // setting default values
+    console.log('global error', err);
     let statusCode = 500;
     let message = "Something went wrong";
     let errorDetails;
@@ -60,6 +62,8 @@ const globalErrorHandler = (err, req, res, next) => {
         message = "An error occurred";
         errorMessage = err === null || err === void 0 ? void 0 : err.message;
         errorDetails = err;
+    }
+    else if (err instanceof multer_1.default.memoryStorage) {
     }
     return res.status(statusCode).json({
         success: false,

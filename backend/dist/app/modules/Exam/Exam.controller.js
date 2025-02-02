@@ -19,18 +19,88 @@ const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const Exam_service_1 = require("./Exam.service");
 const getAllSet = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allSet = yield Exam_service_1.ExamServices.getAllSet();
-    return allSet;
+    (0, sendResponse_1.default)(res, {
+        data: allSet,
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "get all set successful",
+    });
 }));
 const getSingleSet = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const set = yield Exam_service_1.ExamServices.getSingleSet('2');
+    const { setId } = req.params;
+    const set = yield Exam_service_1.ExamServices.getSingleSet(setId);
     (0, sendResponse_1.default)(res, {
         data: set,
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'set get successful'
+        message: "set get successful",
     });
+}));
+const addQuestion = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const files = req.files;
+    const body = req.body;
+    const { setId } = req.params;
+    const { setNotFound, faild, listeningBiggerThan20, readingIsBiggerThan20, saved } = yield Exam_service_1.ExamServices.addQuestion({ files, body, setId });
+    if (listeningBiggerThan20) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.NOT_ACCEPTABLE,
+            success: false,
+            error: 'Already have 20 listening questions'
+        });
+    }
+    if (readingIsBiggerThan20) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.NOT_ACCEPTABLE,
+            success: false,
+            error: 'Already have 20 reading questions',
+        });
+    }
+    if (faild) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.NOT_IMPLEMENTED,
+            success: false,
+            error: 'Add question faild'
+        });
+    }
+    if (setNotFound) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.NOT_FOUND,
+            success: false,
+            error: 'Set not found'
+        });
+    }
+    if (saved) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.CREATED,
+            success: true,
+            data: saved,
+            message: 'Add question successfull',
+        });
+    }
+}));
+const submitExam = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { submitExamData } = req.body;
+    const setId = req.params.setId;
+    const { responseObj, setNotFound } = yield Exam_service_1.ExamServices.submitExam({ setId, submitExamData });
+    if (setNotFound) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.NOT_FOUND,
+            success: false,
+            error: 'set not found'
+        });
+    }
+    if (responseObj) {
+        return (0, sendResponse_1.default)(res, {
+            statusCode: http_status_1.default.OK,
+            success: true,
+            data: responseObj,
+            message: 'get submited set result'
+        });
+    }
 }));
 exports.ExamControllers = {
     getAllSet,
-    getSingleSet
+    getSingleSet,
+    submitExam,
+    addQuestion,
 };

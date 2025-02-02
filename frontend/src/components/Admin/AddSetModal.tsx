@@ -1,6 +1,7 @@
-import { useCreateNewSetMutation } from "@toolkit/Exam/setApi";
-import React, { useEffect, useState } from "react";
 
+import { useCreateNewSetMutation } from "@toolkit/Admin/adminApi";
+import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 type TProps = {
   isOpen: boolean;
   modalToggle: () => void;
@@ -15,26 +16,46 @@ const AddSetModal = (props: TProps) => {
     name: "",
     description: "",
   });
-  const [mutate,{isSuccess}] = useCreateNewSetMutation()
+  const [formErrorFromServer, setFormErrorFromServer] = useState<{
+    [key: string]: string;
+  }>({});
+  const [mutate, { isSuccess, error, isError }] = useCreateNewSetMutation();
   const { isOpen, modalToggle } = props;
-  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setSetValue({
       ...setValue,
-      [event.target.name] : event.target.value
-    })
-  }
-  useEffect(()=> {
-    if(isSuccess){
-      setSetValue({name:'',description:''})
-    modalToggle()
-    }
-  },[isSuccess])
-  const handleSubmitSet = (event:React.FormEvent) => {
-    event.preventDefault()
-    mutate(setValue)
+      [event.target.name]: event.target.value,
+    });
   };
-  const {description,name} = setValue
-  
+  useEffect(() => {
+    if (isSuccess) {
+      setSetValue({ name: "", description: "" });
+      modalToggle();
+    }
+  }, [isSuccess]);
+  useEffect(() => {
+    if (isError && "data" in error && error.data && typeof error.data === "object") {
+      const errorMessage = (error.data as { message?: string })?.message;
+      const errorArr = (
+        error.data as { error: { path: string; message: string }[] }
+      )?.error;
+      if (errorMessage) {
+        toast.error(errorMessage);
+      }
+      if(errorArr) {
+        const errObj = errorArr?.reduce((acc,{path,message}) => ({...acc, [path] : message}) , {} )
+        setFormErrorFromServer(errObj)
+      }
+    }
+  }, [isError, error]);
+  const handleSubmitSet = (event: React.FormEvent) => {
+    event.preventDefault();
+    mutate(setValue);
+  };
+  const { description, name } = setValue;
+
   return (
     <div
       className={` w-full h-screen absolute  ${
@@ -72,29 +93,32 @@ const AddSetModal = (props: TProps) => {
                 <span className="sr-only">Close modal</span>
               </button>
             </div>
-            <form onSubmit={handleSubmitSet} autoComplete="off" >
+            <form onSubmit={handleSubmitSet} autoComplete="off">
               <div className="px-4 py-2">
+       
                 <label htmlFor="name">Set Name:</label> <br />
                 <input
-                value={name}
-                onChange={handleInputChange}
+                  value={name}
+                  onChange={handleInputChange}
                   type="text"
                   name="name"
                   id="name"
                   placeholder="Set-1"
                   className="w-full border border-black/50 outline-none my-2 p-2"
                 />
+              <p className="text-red-500"  > {formErrorFromServer['name']}</p>
               </div>
               <div className="px-4 py-2">
                 <label htmlFor="description">Set Description:</label> <br />
                 <textarea
-                onChange={handleInputChange}
-                value={description}
+                  onChange={handleInputChange}
+                  value={description}
                   name="description"
                   id="description"
                   placeholder="Enter Description..."
                   className="w-full border border-black/50 outline-none my-2 p-2"
-                />
+                  />
+           <p className="text-red-500" >  {formErrorFromServer['description']}</p>
               </div>
 
               <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b ">
@@ -110,6 +134,7 @@ const AddSetModal = (props: TProps) => {
           </div>
         </div>
       </div>
+      <Toaster position="top-right" />
     </div>
   );
 };

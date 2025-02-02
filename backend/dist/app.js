@@ -1,4 +1,6 @@
 "use strict";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -9,18 +11,17 @@ const morgan_1 = __importDefault(require("morgan"));
 const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErrorHandler"));
 const notFound_1 = __importDefault(require("./app/middleware/notFound"));
 const routes_1 = __importDefault(require("./app/routes"));
-const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
-const config_1 = __importDefault(require("./app/config"));
 app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, morgan_1.default)("dev"));
 app.use((0, cors_1.default)({
-    origin: config_1.default.client_url,
+    origin: "*",
     // credentials: true,
 }));
 // app.use(cookieParser());
-const static_folder = path_1.default.join(__dirname, "..", "public");
-app.use(express_1.default.static(static_folder));
+app.use(express_1.default.static('public'));
+app.use('/uploads', express_1.default.static('uploads'));
 // application routes
 app.use("/api/v1", routes_1.default);
 app.get("/", (req, res) => {

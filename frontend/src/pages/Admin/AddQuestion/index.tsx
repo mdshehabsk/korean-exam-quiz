@@ -1,11 +1,12 @@
 import Questions from "@components/Questions";
 import AddQuestionModal from "@components/Admin/AddQuestionModal";
-import { useGetAllSetQuery, useGetSingleSetQuery } from "@toolkit/Exam/setApi";
 import React, { useState } from "react";
-const index = () => {
+import { useGetAllSetForAdminQuery, useGetSingleSetForAdminQuery } from "@toolkit/Admin/adminApi";
+
+const Index = () => {
   const [setId, setSetId] = useState("");
-  const { data: allSet } = useGetAllSetQuery(undefined);
-  const { data: singleSet } = useGetSingleSetQuery(setId, { skip: !setId });
+  const { data: allSet } = useGetAllSetForAdminQuery(undefined);
+  const { data: singleSet } = useGetSingleSetForAdminQuery(setId, { skip: !setId });
   const [isModal, setIsModal] = useState(false);
 
   const modalToggleFunc = () => {
@@ -44,7 +45,7 @@ const index = () => {
       <div>
         {singleSet && (
           <div className="exam-questions">
-            <Questions set={singleSet?.data} footer={false} />
+            <Questions set={singleSet?.data} />
             <div className="flex justify-center py-4 bg-white">
               <button
                 onClick={modalToggleFunc}
@@ -58,13 +59,16 @@ const index = () => {
         )}
       </div>
 
-      <AddQuestionModal
-        setId={setId}
+      {
+        singleSet && <AddQuestionModal
+        singleSet={singleSet?.data}
         isOpen={isModal}
         modalToggle={modalToggleFunc}
       />
+      }
+     
     </div>
   );
 };
 
-export default index;
+export default Index;
