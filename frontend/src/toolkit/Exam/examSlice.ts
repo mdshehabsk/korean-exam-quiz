@@ -3,6 +3,7 @@ import { ISetQuestion } from "../../types/exam";
 
 interface IInitialState {
   currentQuestion: ISetQuestion | null;
+  resultCurrentQuestion: ISetQuestion | null
   submitExamData: Record<string, number>;
   isAudioPlaying: boolean;
   playedAudios: {
@@ -19,6 +20,7 @@ const initialState: IInitialState = {
   submitExamData: {},
   playedAudios: {},
   isAudioPlaying: false,
+  resultCurrentQuestion : null
 };
 
 export const examSlice = createSlice({
@@ -28,6 +30,10 @@ export const examSlice = createSlice({
     handleCurrentQuestion: (state, action) => {
       const payload = action.payload;
       state.currentQuestion = payload;
+    },
+    handleResultCurrentQuestion: (state, action) => {
+      const payload = action.payload
+      state.resultCurrentQuestion = payload
     },
     handleSubmitExamData: (state, action) => {
       const payload = action.payload;
@@ -69,6 +75,9 @@ export const examSlice = createSlice({
     reset: (state) => {
       state.currentQuestion = null;
     },
+    resetResultCurrentQuestion : state => {
+      state.resultCurrentQuestion = null
+    }
   },
 });
 
@@ -78,5 +87,7 @@ export const {
   handleCurrentQuestion,
   handlePlayedAudios,
   handleIsAudioPlaying,
+  handleResultCurrentQuestion,
+  resetResultCurrentQuestion
 
 } = examSlice.actions;

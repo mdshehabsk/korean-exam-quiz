@@ -2,5 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminRoutes = void 0;
 const express_1 = require("express");
+const admin_controller_1 = require("./admin.controller");
+const validateRequest_1 = require("../../middleware/validateRequest");
+const admin_validation_1 = require("./admin.validation");
 const router = (0, express_1.Router)();
+router.get('/exam/get-all-set', admin_controller_1.AdminController.getAllSetForAdmin);
+router.get('/exam/get-single-set/:setId', admin_controller_1.AdminController.getSingleSetForAdmin);
+router.post("/exam/create-set", (0, validateRequest_1.validateBodyRequest)(admin_validation_1.AdminValidation.CreateSetZodSchema), admin_controller_1.AdminController.addSet);
+router.patch('/exam/update-set/:setId', admin_controller_1.AdminController.updateSet);
 exports.AdminRoutes = router;

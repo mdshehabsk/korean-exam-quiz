@@ -45,7 +45,7 @@ const Index = () => {
       <div>
         {singleSet && (
           <div className="exam-questions">
-            <Questions set={singleSet?.data} footer={false} />
+            <Questions set={singleSet?.data} />
             <div className="flex justify-center py-4 bg-white">
               <button
                 onClick={modalToggleFunc}

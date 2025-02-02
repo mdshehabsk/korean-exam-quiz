@@ -9,7 +9,7 @@ const getAllSet = async () => {
 };
 
 const getSingleSet = async (setId: string) => {
-  const findSet = await SetModel.findOne({_id: setId, status : 'publish'}).select('-answer');
+  const findSet = await SetModel.findOne({_id: setId, status : 'publish'}).select('-questions.answer');
   return findSet;
 };
 

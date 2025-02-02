@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "@toolkit/hook";
 import { ImVolumeMedium } from "react-icons/im";
 import {
-  handleCurrentQuestion,
+
   handleSubmitExamData,
-  reset,
+
   handlePlayedAudios,
   handleIsAudioPlaying
 } from "@toolkit/Exam/examSlice";
@@ -26,22 +26,11 @@ const defaultProps = {
 };
 
 const Question = (props: TProps) => {
-  const { currentQuestion, set, submitBtn, optionAction } = props;
+  const { currentQuestion, set, optionAction } = props;
   const dispatch = useAppDispatch();
+
   const { submitExamData, isAudioPlaying, playedAudios  } = useAppSelector((state) => state.exam);
-  const newPrevQuestion = set.questions.find(
-    (question) => question.number === (currentQuestion?.number || 0) - 1
-  );
-  const newNextQuestion = set.questions.find(
-    (question) => question.number === (currentQuestion?.number || 0) + 1
-  );
-  const prevQuestionFn = () => {
-    dispatch(handleCurrentQuestion(newPrevQuestion));
-  };
-  const nextQuestionFn = () => {
-    dispatch(handleCurrentQuestion(newNextQuestion));
-  };
-  const totalQuestionFn = () => dispatch(reset());
+
 
 
 
@@ -134,12 +123,14 @@ const Question = (props: TProps) => {
                     }
                     getSelectedOption={handleSelectOption}
                     number={i + 1}
+                    correct={ currentQuestion?.answer == i + 1  }
                   >
                     <p className="font-semibold font-korean text-2xl">
                       {option}
                     </p>
                   </QuestionOptionBtn>
                 ))}
+                
               {currentQuestion?.optionsType === "image" &&
                 currentQuestion?.options?.map((option, i) => (
                   <QuestionOptionBtn
@@ -151,6 +142,7 @@ const Question = (props: TProps) => {
                     getSelectedOption={handleSelectOption}
                     number={i + 1}
                     key={i}
+                    correct={ currentQuestion?.answer == i + 1  }
                   >
                     <img src={option} alt="" />
                   </QuestionOptionBtn>
@@ -166,6 +158,7 @@ const Question = (props: TProps) => {
                     getSelectedOption={handleSelectOption}
                     number={i + 1}
                     key={i}
+                    correct={ currentQuestion?.answer == i + 1  }
                   >
                     <div onClick={() => optionAudioPlay(option,i)}>
                       <ImVolumeMedium
@@ -180,46 +173,7 @@ const Question = (props: TProps) => {
           </div>
         </div>
       </div>
-      <div className="exam--footer ">
-        <div className="container bg-white flex flex-wrap justify-center lg:justify-end my-4 ">
-          <button
-            type="button"
-            className={`exam-footer-btn   ${
-              newPrevQuestion ? "bg-blue-700" : "bg-blue-500"
-            } `}
-            onClick={prevQuestionFn}
-            disabled={newPrevQuestion ? false : true}
-          >
-            Previous
-          </button>
 
-          <button
-            type="button"
-            className="exam-footer-btn bg-yellow-700 hover:bg-yellow-800"
-            onClick={totalQuestionFn}
-          >
-            Total
-          </button>
-          <button
-            type="button"
-            className={`exam-footer-btn 0 ${
-              newNextQuestion ? "bg-red-700" : "bg-red-500"
-            } `}
-            onClick={nextQuestionFn}
-            disabled={newNextQuestion ? false : true}
-          >
-            Next
-          </button>
-          {submitBtn && (
-            <button
-              type="button"
-              className="exam-footer-btn bg-green-700 hover:bg-green-800"
-            >
-              Submit
-            </button>
-          )}
-        </div>
-      </div>
     </div>
   );
 };

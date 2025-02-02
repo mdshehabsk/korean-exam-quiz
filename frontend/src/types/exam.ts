@@ -10,7 +10,8 @@ export interface ISetQuestion {
     answer: number,
     optionsType: 'text' | 'image' | 'audio'
     options : string[] ,
-    number?: number
+    number?: number,
+    selected?: number
 }
 
 export interface ISet {
