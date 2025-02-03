@@ -42,6 +42,10 @@ const Exam = () => {
           (progress.downloadedSize / progress.totalSize) *
           100
         ).toFixed(2)}%  `;
+        progressRef.current.innerText = ` ${(
+          (progress.downloadedSize / progress.totalSize) *
+          100
+        ).toFixed(2)}%  `
       }
       if (loadedSizeRef.current) {
         loadedSizeRef.current.innerText = `${(
