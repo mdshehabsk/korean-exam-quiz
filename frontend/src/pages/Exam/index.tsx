@@ -12,6 +12,7 @@ const Exam = () => {
   const progressRef = useRef<HTMLHeadingElement>(null);
   const totalSizeRef = useRef<HTMLSpanElement>(null);
   const loadedSizeRef = useRef<HTMLSpanElement>(null);
+  const startExamBtnRef = useRef<HTMLButtonElement>(null)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { data: allSet } = useGetAllSetQuery(undefined);
@@ -58,6 +59,10 @@ const Exam = () => {
           progress.totalSize /
           (1024 * 1024)
         ).toFixed(2)} MB`;
+      }
+      if(startExamBtnRef.current){
+        startExamBtnRef.current.style.opacity = '0.5'
+        startExamBtnRef.current.disabled = true
       }
     }
 
@@ -146,6 +151,7 @@ const Exam = () => {
                       <button
                         className="px-8 w-[200px] py-2 bg-green-600 text-white rounded-full text-2xl "
                         onClick={() => handleTakeExam(elem._id)}
+                        ref={startExamBtnRef}
                       >
                         Start Exam
                       </button>
