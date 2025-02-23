@@ -111,7 +111,7 @@ const Exam = () => {
   return (
     <React.Fragment>
       <div className="flex flex-wrap min-h-lvh w-full  ">
-        <div className="basis-full md:basis-6/12 lg:basis-4/12  p-8 flex flex-wrap gap-2  ">
+        <div className="basis-full md:basis-6/12 lg:basis-4/12  p-8 flex  gap-2  ">
           {allSet?.data?.map((elem, index) => (
             <div
               key={index}
