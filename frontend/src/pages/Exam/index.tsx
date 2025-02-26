@@ -5,6 +5,7 @@ import { useLazyGetSingleSetQuery } from "@toolkit/Exam/setApi";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@toolkit/hook";
 import { handleCurrentCachedSet } from "@toolkit/Exam/setSlice";
+import SkeletonUI from "@components/Skeleton";
 import { useRef, useState } from "react";
 import React from "react";
 const Exam = () => {
@@ -15,7 +16,7 @@ const Exam = () => {
   const startExamBtnRef = useRef<HTMLButtonElement>(null)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { data: allSet } = useGetAllSetQuery(undefined);
+  const { data: allSet,isLoading, } = useGetAllSetQuery(undefined);
   const [trigger] = useLazyGetSingleSetQuery();
 
   const progress = { totalSize: 0, downloadedSize: 0 };
@@ -110,12 +111,12 @@ const Exam = () => {
 
   return (
     <React.Fragment>
-      <div className="flex flex-wrap min-h-lvh w-full  ">
-        <div className="basis-full md:basis-6/12 lg:basis-4/12  p-8 flex  gap-2  ">
+      <div className=" min-h-lvh w-full  ">
+        <div className=" p-4 flex flex-wrap justify-center gap-2   ">
           {allSet?.data?.map((elem, index) => (
             <div
               key={index}
-              className=" self-start grow p-6 bg-white border border-gray-200 rounded-lg shadow  "
+              className=" basis-full md:basis-4/12 lg:basis-5/12 p-6 bg-white border border-gray-200 rounded-lg shadow  "
             >
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {elem.name}
@@ -167,6 +168,9 @@ const Exam = () => {
               )}
             </div>
           ))}
+          {
+            isLoading && <SkeletonUI/>
+          }
         </div>
       </div>
     </React.Fragment>
